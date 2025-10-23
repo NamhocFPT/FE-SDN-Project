@@ -1,0 +1,59 @@
+// Biến màu (tùy chọn, có thể điều chỉnh)
+$primary-color: #007bff;
+$text-color: #343a40;
+$light-text-color: #6c757d;
+
+.not-found-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; // Chiếm toàn bộ chiều cao màn hình
+    background-color: #f8f9fa;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    padding: 20px;
+
+    &__container {
+        max-width: 600px;
+    }
+
+    &__title {
+        font-size: 10rem; // Kích thước lớn cho số 404
+        font-weight: 700;
+        color: $primary-color;
+        margin: 0;
+        line-height: 1;
+        text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    }
+
+    &__subtitle {
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: $text-color;
+        margin: 10px 0;
+    }
+
+    &__description {
+        font-size: 1.1rem;
+        color: $light-text-color;
+        margin-bottom: 30px;
+        line-height: 1.6;
+    }
+
+    &__button {
+        display: inline-block;
+        background-color: $primary-color;
+        color: #fff;
+        padding: 12px 30px;
+        border-radius: 50px; // Bo tròn
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0,123,255,0.3);
+
+        &:hover {
+            background-color: darken($primary-color, 10%);
+            transform: translateY(-2px);
+        }
+    }
+}

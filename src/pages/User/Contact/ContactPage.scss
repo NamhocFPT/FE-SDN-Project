@@ -1,0 +1,150 @@
+.contact-page {
+    &__header {
+        text-align: center;
+        padding: 40px 20px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        margin-bottom: 40px;
+
+        h1 {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+    }
+
+    &__container {
+        display: grid;
+        grid-template-columns: 2fr 1fr; // Form 2 phần, Info 1 phần
+        gap: 40px;
+        margin-bottom: 40px;
+
+        @media (max-width: 992px) {
+            grid-template-columns: 1fr; // Xếp chồng trên mobile
+        }
+    }
+
+    &__form-section,
+    &__info-section,
+    &__map-section {
+        background: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+
+        h3 {
+            font-size: 24px;
+            margin-top: 0;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+    }
+
+    // --- Form Styling ---
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+
+        label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            font-family: inherit;
+            box-sizing: border-box; // Quan trọng để padding không làm vỡ layout
+
+            &:focus {
+                outline: none;
+                border-color: #007bff;
+                box-shadow: 0 0 5px rgba(0,123,255,0.3);
+            }
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+    }
+
+    .form-button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 15px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: #0056b3;
+        }
+    }
+
+    // --- Info Styling ---
+    .info-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .info-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .info-icon {
+        font-size: 24px;
+        color: #007bff;
+        margin-top: 5px;
+    }
+
+    .info-text {
+        strong {
+            font-size: 16px;
+            display: block;
+            margin-bottom: 3px;
+        }
+        p {
+            margin: 0;
+            color: #555;
+            line-height: 1.5;
+        }
+    }
+    
+    // --- Map Styling ---
+    &__map-section {
+        padding: 0; // Tắt padding cho map
+        overflow: hidden; // Đảm bảo iframe không tràn
+        
+        h3 {
+            padding: 20px 30px 0;
+            margin-bottom: 20px;
+            border: none;
+        }
+
+        iframe {
+            display: block; // Xóa khoảng trắng thừa bên dưới
+            border: none;
+        }
+    }
+}

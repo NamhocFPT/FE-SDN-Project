@@ -1,0 +1,383 @@
+{
+  "roles": [
+    {
+      "_id": "66f000000000000000000001",
+      "name": "admin",
+      "description": "System administrator",
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:00:00.000Z"
+    },
+    {
+      "_id": "66f000000000000000000002",
+      "name": "staff",
+      "description": "Restaurant staff",
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:00:00.000Z"
+    },
+    {
+      "_id": "66f000000000000000000003",
+      "name": "customer",
+      "description": "End customer",
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:00:00.000Z"
+    }
+  ],
+  "users": [
+    {
+      "_id": "66f000000000000000000010",
+      "fullName": "Alice Admin",
+      "email": "alice@demo.com",
+      "passHash": "$2b$10$demo.hash.for.sample.only",
+      "phone": "+84-900000001",
+      "roleId": "66f000000000000000000001",
+      "isDisabled": false,
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:00:00.000Z"
+    },
+    {
+      "_id": "66f000000000000000000012",
+      "fullName": "Bob Staff",
+      "email": "bob@demo.com",
+      "passHash": "$2b$10$demo.hash.for.sample.only",
+      "phone": "+84-900000002",
+      "roleId": "66f000000000000000000002",
+      "isDisabled": false,
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:00:00.000Z"
+    },
+    {
+      "_id": "66f000000000000000000011",
+      "fullName": "Chris Customer",
+      "email": "chris@demo.com",
+      "passHash": "$2b$10$demo.hash.for.sample.only",
+      "phone": "+84-900000003",
+      "roleId": "66f000000000000000000003",
+      "isDisabled": false,
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:00:00.000Z"
+    }
+  ],
+  "categories": [
+    {
+      "_id": "66f000000000000000000101",
+      "name": "Pizza",
+      "slug": "pizza",
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:00:00.000Z"
+    },
+    {
+      "_id": "66f000000000000000000102",
+      "name": "Burgers",
+      "slug": "burgers",
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:00:00.000Z"
+    },
+    {
+      "_id": "66f000000000000000000103",
+      "name": "Drinks",
+      "slug": "drinks",
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:00:00.000Z"
+    },
+    {
+      "_id": "66f000000000000000000104",
+      "name": "Desserts",
+      "slug": "desserts",
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:00:00.000Z"
+    }
+  ],
+  "foods": [
+    {
+      "_id": "66f000000000000000000201",
+      "name": "Margherita Pizza",
+      "slug": "margherita-pizza",
+      "categoryId": "66f000000000000000000101",
+      "price": 150000,
+      "salePrice": 135000,
+      "currency": "VND",
+      "images": [
+        "https://images.unsplash.com/photo-1542281286-9e0a16bb7366",
+        "https://images.unsplash.com/photo-1601924928585-c8b9f4f3d4e6"
+      ],
+      "tags": [
+        "vegetarian",
+        "italian"
+      ],
+      "inStock": true,
+      "description": "Classic tomato, mozzarella, basil.",
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:00:00.000Z"
+    },
+    {
+      "_id": "66f000000000000000000202",
+      "name": "Pepperoni Pizza",
+      "slug": "pepperoni-pizza",
+      "categoryId": "66f000000000000000000101",
+      "price": 180000,
+      "salePrice": null,
+      "currency": "VND",
+      "images": [
+        "https://images.unsplash.com/photo-1548365328-9f547fb09530"
+      ],
+      "tags": [
+        "spicy",
+        "popular"
+      ],
+      "inStock": true,
+      "description": "Pepperoni, mozzarella, tomato sauce.",
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:00:00.000Z"
+    },
+    {
+      "_id": "66f000000000000000000203",
+      "name": "Classic Cheeseburger",
+      "slug": "classic-cheeseburger",
+      "categoryId": "66f000000000000000000102",
+      "price": 120000,
+      "salePrice": null,
+      "currency": "VND",
+      "images": [
+        "https://images.unsplash.com/photo-1550317138-10000687a72b"
+      ],
+      "tags": [
+        "beef",
+        "cheese"
+      ],
+      "inStock": true,
+      "description": "Beef patty, cheddar, lettuce, tomato.",
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:00:00.000Z"
+    },
+    {
+      "_id": "66f000000000000000000204",
+      "name": "Iced Lemon Tea",
+      "slug": "iced-lemon-tea",
+      "categoryId": "66f000000000000000000103",
+      "price": 35000,
+      "salePrice": null,
+      "currency": "VND",
+      "images": [
+        "https://images.unsplash.com/photo-1511920170033-f8396924c348"
+      ],
+      "tags": [
+        "refreshing"
+      ],
+      "inStock": true,
+      "description": "Black tea with fresh lemon and ice.",
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:00:00.000Z"
+    },
+    {
+      "_id": "66f000000000000000000205",
+      "name": "Chocolate Brownie",
+      "slug": "chocolate-brownie",
+      "categoryId": "66f000000000000000000104",
+      "price": 55000,
+      "salePrice": null,
+      "currency": "VND",
+      "images": [
+        "https://images.unsplash.com/photo-1606313564200-e75d5e30476c"
+      ],
+      "tags": [
+        "chocolate",
+        "sweet"
+      ],
+      "inStock": true,
+      "description": "Rich chocolate brownie.",
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:00:00.000Z"
+    }
+  ],
+  "blog_categories": [
+    {
+      "_id": "66f000000000000000000301",
+      "name": "News",
+      "slug": "news",
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:00:00.000Z"
+    },
+    {
+      "_id": "66f000000000000000000302",
+      "name": "Promotions",
+      "slug": "promotions",
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:00:00.000Z"
+    },
+    {
+      "_id": "66f000000000000000000303",
+      "name": "Recipes",
+      "slug": "recipes",
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:00:00.000Z"
+    }
+  ],
+  "blogs": [
+    {
+      "_id": "66f000000000000000000311",
+      "title": "Grand Opening: New Downtown Location",
+      "slug": "grand-opening-downtown",
+      "coverImage": "https://images.unsplash.com/photo-1559339352-11d035aa65de",
+      "blogCategoryId": "66f000000000000000000301",
+      "authorId": "66f000000000000000000010",
+      "content": "We are excited to open our new location in the heart of the city!",
+      "published": true,
+      "publishedAt": "2025-10-16T07:00:00.000Z",
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:00:00.000Z"
+    },
+    {
+      "_id": "66f000000000000000000312",
+      "title": "Weekend Deal: 20% Off Pizzas",
+      "slug": "weekend-deal-20-off-pizzas",
+      "coverImage": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee",
+      "blogCategoryId": "66f000000000000000000302",
+      "authorId": "66f000000000000000000012",
+      "content": "Enjoy 20% off all pizzas every weekend this month.",
+      "published": true,
+      "publishedAt": "2025-10-16T07:00:00.000Z",
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:00:00.000Z"
+    }
+  ],
+  "payment_methods": [
+    {
+      "_id": "66f000000000000000000401",
+      "code": "CASH",
+      "name": "Cash",
+      "active": true,
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:00:00.000Z"
+    },
+    {
+      "_id": "66f000000000000000000402",
+      "code": "CARD",
+      "name": "Credit/Debit",
+      "active": true,
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:00:00.000Z"
+    },
+    {
+      "_id": "66f000000000000000000403",
+      "code": "EWALLET",
+      "name": "E-Wallet",
+      "active": true,
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:00:00.000Z"
+    }
+  ],
+  "carts": [
+    {
+      "_id": "66f000000000000000000501",
+      "userId": "66f000000000000000000011",
+      "status": "active",
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:00:00.000Z"
+    }
+  ],
+  "cartItems": [
+    {
+      "_id": "66f000000000000000000511",
+      "cartId": "66f000000000000000000501",
+      "foodId": "66f000000000000000000201",
+      "name": "Margherita Pizza",
+      "unitPrice": 135000,
+      "quantity": 1,
+      "lineTotal": 135000,
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:00:00.000Z"
+    },
+    {
+      "_id": "66f000000000000000000512",
+      "cartId": "66f000000000000000000501",
+      "foodId": "66f000000000000000000204",
+      "name": "Iced Lemon Tea",
+      "unitPrice": 35000,
+      "quantity": 2,
+      "lineTotal": 70000,
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:00:00.000Z"
+    },
+    {
+      "_id": "66f000000000000000000513",
+      "cartId": "66f000000000000000000501",
+      "foodId": "66f000000000000000000205",
+      "name": "Chocolate Brownie",
+      "unitPrice": 55000,
+      "quantity": 1,
+      "lineTotal": 55000,
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:00:00.000Z"
+    }
+  ],
+  "orders": [
+    {
+      "_id": "66f000000000000000000601",
+      "code": "ORD-0001",
+      "userId": "66f000000000000000000011",
+      "status": "paid",
+      "address": {
+        "fullName": "Chris Customer",
+        "phone": "+84-900000003",
+        "line1": "123 Nguyen Trai",
+        "ward": "Phuong 7",
+        "district": "Quan 5",
+        "city": "Ho Chi Minh",
+        "country": "VN"
+      },
+      "amounts": {
+        "currency": "VND",
+        "subtotal": 205000,
+        "shipping": 15000,
+        "discount": 0,
+        "tax": 0,
+        "grandTotal": 220000
+      },
+      "notes": "No onions please.",
+      "paymentId": "66f000000000000000000701",
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:10:00.000Z"
+    }
+  ],
+  "order_details": [
+    {
+      "_id": "66f000000000000000000621",
+      "orderId": "66f000000000000000000601",
+      "foodId": "66f000000000000000000201",
+      "name": "Margherita Pizza",
+      "unitPrice": 135000,
+      "quantity": 1,
+      "lineTotal": 135000,
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:00:00.000Z"
+    },
+    {
+      "_id": "66f000000000000000000622",
+      "orderId": "66f000000000000000000601",
+      "foodId": "66f000000000000000000204",
+      "name": "Iced Lemon Tea",
+      "unitPrice": 35000,
+      "quantity": 2,
+      "lineTotal": 70000,
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:00:00.000Z"
+    }
+  ],
+  "payments": [
+    {
+      "_id": "66f000000000000000000701",
+      "orderId": "66f000000000000000000601",
+      "methodId": "66f000000000000000000403",
+      "methodSnapshot": {
+        "code": "EWALLET",
+        "name": "E-Wallet"
+      },
+      "amount": 220000,
+      "currency": "VND",
+      "status": "paid",
+      "paidAt": "2025-10-16T07:08:00.000Z",
+      "createdAt": "2025-10-16T07:00:00.000Z",
+      "updatedAt": "2025-10-16T07:08:00.000Z"
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+/* src/pages/User/Home.scss */
+
+.home-page {
+    .hero {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836');
+        background-size: cover;
+        background-position: center;
+        color: #fff;
+        text-align: center;
+        padding: 100px 20px;
+        border-radius: 8px;
+        margin-bottom: 40px;
+
+        h1 { font-size: 48px; margin-bottom: 10px; }
+        p { font-size: 20px; margin-bottom: 30px; }
+        
+        &__button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            &:hover { background-color: #0056b3; }
+        }
+    }
+
+    .home-section {
+        margin-bottom: 50px;
+        h2 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+    }
+
+    .category-list {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .category-item {
+        background: #fff;
+        padding: 10px 20px;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+    }
+    
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+    }
+}
