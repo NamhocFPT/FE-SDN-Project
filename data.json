@@ -5,21 +5,24 @@
       "name": "admin",
       "description": "System administrator",
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:00:00.000Z"
+      "updatedAt": "2025-10-16T07:00:00.000Z",
+      "id": "75b1"
     },
     {
       "_id": "66f000000000000000000002",
       "name": "staff",
       "description": "Restaurant staff",
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:00:00.000Z"
+      "updatedAt": "2025-10-16T07:00:00.000Z",
+      "id": "7293"
     },
     {
       "_id": "66f000000000000000000003",
       "name": "customer",
       "description": "End customer",
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:00:00.000Z"
+      "updatedAt": "2025-10-16T07:00:00.000Z",
+      "id": "5921"
     }
   ],
   "users": [
@@ -32,7 +35,8 @@
       "roleId": "66f000000000000000000001",
       "isDisabled": false,
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:00:00.000Z"
+      "updatedAt": "2025-10-16T07:00:00.000Z",
+      "id": "bf89"
     },
     {
       "_id": "66f000000000000000000012",
@@ -43,7 +47,8 @@
       "roleId": "66f000000000000000000002",
       "isDisabled": false,
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:00:00.000Z"
+      "updatedAt": "2025-10-16T07:00:00.000Z",
+      "id": "0da7"
     },
     {
       "_id": "66f000000000000000000011",
@@ -54,7 +59,14 @@
       "roleId": "66f000000000000000000003",
       "isDisabled": false,
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:00:00.000Z"
+      "updatedAt": "2025-10-16T07:00:00.000Z",
+      "id": "8e9e"
+    },
+    {
+      "id": "75a1",
+      "name": "Nguyễn Xuân Đức",
+      "email": "ducnxhe186870@fpt.edu.vn",
+      "password": "123456789"
     }
   ],
   "categories": [
@@ -63,28 +75,32 @@
       "name": "Pizza",
       "slug": "pizza",
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:00:00.000Z"
+      "updatedAt": "2025-10-16T07:00:00.000Z",
+      "id": "7f8f"
     },
     {
       "_id": "66f000000000000000000102",
       "name": "Burgers",
       "slug": "burgers",
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:00:00.000Z"
+      "updatedAt": "2025-10-16T07:00:00.000Z",
+      "id": "c399"
     },
     {
       "_id": "66f000000000000000000103",
       "name": "Drinks",
       "slug": "drinks",
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:00:00.000Z"
+      "updatedAt": "2025-10-16T07:00:00.000Z",
+      "id": "fb13"
     },
     {
       "_id": "66f000000000000000000104",
       "name": "Desserts",
       "slug": "desserts",
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:00:00.000Z"
+      "updatedAt": "2025-10-16T07:00:00.000Z",
+      "id": "7477"
     }
   ],
   "foods": [
@@ -107,7 +123,8 @@
       "inStock": true,
       "description": "Classic tomato, mozzarella, basil.",
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:00:00.000Z"
+      "updatedAt": "2025-10-16T07:00:00.000Z",
+      "id": "8d73"
     },
     {
       "_id": "66f000000000000000000202",
@@ -127,7 +144,8 @@
       "inStock": true,
       "description": "Pepperoni, mozzarella, tomato sauce.",
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:00:00.000Z"
+      "updatedAt": "2025-10-16T07:00:00.000Z",
+      "id": "8844"
     },
     {
       "_id": "66f000000000000000000203",
@@ -147,7 +165,8 @@
       "inStock": true,
       "description": "Beef patty, cheddar, lettuce, tomato.",
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:00:00.000Z"
+      "updatedAt": "2025-10-16T07:00:00.000Z",
+      "id": "7425"
     },
     {
       "_id": "66f000000000000000000204",
@@ -166,7 +185,8 @@
       "inStock": true,
       "description": "Black tea with fresh lemon and ice.",
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:00:00.000Z"
+      "updatedAt": "2025-10-16T07:00:00.000Z",
+      "id": "0a7b"
     },
     {
       "_id": "66f000000000000000000205",
@@ -186,7 +206,8 @@
       "inStock": true,
       "description": "Rich chocolate brownie.",
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:00:00.000Z"
+      "updatedAt": "2025-10-16T07:00:00.000Z",
+      "id": "4f8e"
     }
   ],
   "blog_categories": [
@@ -195,21 +216,24 @@
       "name": "News",
       "slug": "news",
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:00:00.000Z"
+      "updatedAt": "2025-10-16T07:00:00.000Z",
+      "id": "8bdb"
     },
     {
       "_id": "66f000000000000000000302",
       "name": "Promotions",
       "slug": "promotions",
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:00:00.000Z"
+      "updatedAt": "2025-10-16T07:00:00.000Z",
+      "id": "19d5"
     },
     {
       "_id": "66f000000000000000000303",
       "name": "Recipes",
       "slug": "recipes",
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:00:00.000Z"
+      "updatedAt": "2025-10-16T07:00:00.000Z",
+      "id": "4448"
     }
   ],
   "blogs": [
@@ -224,7 +248,8 @@
       "published": true,
       "publishedAt": "2025-10-16T07:00:00.000Z",
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:00:00.000Z"
+      "updatedAt": "2025-10-16T07:00:00.000Z",
+      "id": "3914"
     },
     {
       "_id": "66f000000000000000000312",
@@ -237,7 +262,8 @@
       "published": true,
       "publishedAt": "2025-10-16T07:00:00.000Z",
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:00:00.000Z"
+      "updatedAt": "2025-10-16T07:00:00.000Z",
+      "id": "5840"
     }
   ],
   "payment_methods": [
@@ -247,7 +273,8 @@
       "name": "Cash",
       "active": true,
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:00:00.000Z"
+      "updatedAt": "2025-10-16T07:00:00.000Z",
+      "id": "7bb1"
     },
     {
       "_id": "66f000000000000000000402",
@@ -255,7 +282,8 @@
       "name": "Credit/Debit",
       "active": true,
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:00:00.000Z"
+      "updatedAt": "2025-10-16T07:00:00.000Z",
+      "id": "f11b"
     },
     {
       "_id": "66f000000000000000000403",
@@ -263,7 +291,8 @@
       "name": "E-Wallet",
       "active": true,
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:00:00.000Z"
+      "updatedAt": "2025-10-16T07:00:00.000Z",
+      "id": "22f8"
     }
   ],
   "carts": [
@@ -272,7 +301,8 @@
       "userId": "66f000000000000000000011",
       "status": "active",
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:00:00.000Z"
+      "updatedAt": "2025-10-16T07:00:00.000Z",
+      "id": "3bb7"
     }
   ],
   "cartItems": [
@@ -285,7 +315,8 @@
       "quantity": 1,
       "lineTotal": 135000,
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:00:00.000Z"
+      "updatedAt": "2025-10-16T07:00:00.000Z",
+      "id": "1705"
     },
     {
       "_id": "66f000000000000000000512",
@@ -296,7 +327,8 @@
       "quantity": 2,
       "lineTotal": 70000,
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:00:00.000Z"
+      "updatedAt": "2025-10-16T07:00:00.000Z",
+      "id": "e010"
     },
     {
       "_id": "66f000000000000000000513",
@@ -307,7 +339,8 @@
       "quantity": 1,
       "lineTotal": 55000,
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:00:00.000Z"
+      "updatedAt": "2025-10-16T07:00:00.000Z",
+      "id": "b98d"
     }
   ],
   "orders": [
@@ -336,7 +369,8 @@
       "notes": "No onions please.",
       "paymentId": "66f000000000000000000701",
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:10:00.000Z"
+      "updatedAt": "2025-10-16T07:10:00.000Z",
+      "id": "2958"
     }
   ],
   "order_details": [
@@ -349,7 +383,8 @@
       "quantity": 1,
       "lineTotal": 135000,
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:00:00.000Z"
+      "updatedAt": "2025-10-16T07:00:00.000Z",
+      "id": "cbee"
     },
     {
       "_id": "66f000000000000000000622",
@@ -360,7 +395,8 @@
       "quantity": 2,
       "lineTotal": 70000,
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:00:00.000Z"
+      "updatedAt": "2025-10-16T07:00:00.000Z",
+      "id": "a9cb"
     }
   ],
   "payments": [
@@ -377,7 +413,8 @@
       "status": "paid",
       "paidAt": "2025-10-16T07:08:00.000Z",
       "createdAt": "2025-10-16T07:00:00.000Z",
-      "updatedAt": "2025-10-16T07:08:00.000Z"
+      "updatedAt": "2025-10-16T07:08:00.000Z",
+      "id": "b106"
     }
   ]
 }

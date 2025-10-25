@@ -11,3 +11,8 @@ export const getCategoryList = async () => {
     return result;
 }
 
+// ✅ Update món ăn
+export const updateFood = async (id, data) => {
+  const result = await patch('api/food', data, id);
+  return result;
+}

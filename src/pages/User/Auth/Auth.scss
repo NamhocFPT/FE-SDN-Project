@@ -1,0 +1,175 @@
+.auth-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #eef3ff, #ffffff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+
+  .auth-container {
+    background: #fff;
+    padding: 40px 50px;
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    animation: fadeIn 0.4s ease-in-out;
+
+    h2 {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 25px;
+      color: #1a1a1a;
+    }
+
+    /* --- Form chung --- */
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      text-align: left;
+
+      label {
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 4px;
+      }
+
+      input {
+        padding: 12px 14px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        background: #fafafa;
+        font-size: 15px;
+        transition: 0.3s;
+
+        &:focus {
+          border-color: #007bff;
+          box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+          background: #fff;
+        }
+      }
+
+      /* --- Nút chính --- */
+      .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 0;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: #0056b3;
+          transform: translateY(-1px);
+        }
+
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+      }
+
+      /* --- Nút hủy (Cancel) --- */
+      .btn-cancel {
+        background-color: #e74c3c;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 0;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: #c0392b;
+          transform: translateY(-1px);
+        }
+      }
+
+      /* --- 2 nút nằm cùng hàng --- */
+      .btn-row {
+        display: flex;
+        gap: 10px;
+      }
+
+      /* --- Nút gửi lại mã --- */
+      .resend-btn {
+        margin-top: 8px;
+        background: none;
+        border: none;
+        color: #007bff;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 14px;
+        text-align: center;
+
+        &:hover {
+          text-decoration: underline;
+        }
+
+        &:disabled {
+          color: #999;
+          cursor: not-allowed;
+          text-decoration: none;
+        }
+      }
+    }
+
+    /* --- Liên kết nhỏ (Login/Register/Forgot) --- */
+    .link {
+      color: #007bff;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.3s;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    /* --- Thông báo thành công / lỗi --- */
+    .message {
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 16px;
+      text-align: left;
+
+      &.success {
+        background: #e8fbe8;
+        color: #1a7f37;
+        border: 1px solid #b7e4b2;
+      }
+
+      &.error {
+        background: #fde8e8;
+        color: #b91c1c;
+        border: 1px solid #f5b5b5;
+      }
+    }
+
+    .error {
+      color: #e74c3c;
+      font-size: 14px;
+      text-align: center;
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
