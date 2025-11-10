@@ -5,6 +5,7 @@ import BlogPage from "../pages/User/Blog/BlogPage";
 import ContactPage from "../pages/User/Contact/ContactPage";
 import Home from "../pages/User/Home/Home";
 import ProductList from "../pages/User/ProductList/ProductList";
+import ProductDetail from "../pages/User/ProductDetail/ProductDetail";
 // Admin imports
 import AdminLayout from "../pages/Admin/AdminLayout";
 import AdminDashboard from "../pages/Admin/AdminDashboard";
@@ -26,6 +27,10 @@ export const Router = [
             {
                 path: 'products',
                 element: < ProductList />
+            },
+            {
+                path: 'products/:idOrSlug', // Dùng tham số động để truyền ID hoặc Slug
+                element: <ProductDetail />
             },
             {
                 path: 'contact',

@@ -69,3 +69,27 @@ export const getFoodsByCategory = async (categoryId, params = {}) => {
         throw new Error(error.message || `Lỗi khi tải món ăn cho danh mục ID: ${categoryId}.`);
     }
 };
+
+// --- 🎯 HÀM MỚI: Lấy chi tiết món ăn theo ID/Slug ---
+// GET /api/food/:idOrSlug
+export const getFoodDetail = async (idOrSlug) => {
+    if (!idOrSlug) {
+        throw new Error("Cần cung cấp ID hoặc Slug để xem chi tiết món ăn.");
+    }
+
+    try {
+        // Gọi API: GET /api/food/idOrSlug
+        const result = await get(`food/${idOrSlug}`);
+
+        // Giả định BE trả về { success: true, data: { ... } }
+        if (!result || result.success === false) {
+            throw new Error(result?.message || "Không tìm thấy món ăn này.");
+        }
+
+        // Trả về đối tượng món ăn (không phải mảng)
+        return result.data;
+
+    } catch (error) {
+        throw new Error(error.message || `Lỗi khi tải chi tiết món ăn ${idOrSlug}.`);
+    }
+};
