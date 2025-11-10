@@ -6,7 +6,8 @@ import AdminLayout from "../pages/Admin/AdminLayout/AdminLayout";
 import DashboardPage from "../pages/Admin/Dashboard/DashboardPage";
 import OrderListPage from "../pages/Admin/OrderList/OrderListPage";
 import UserListPage from "../pages/Admin/UserList/UserListPage";
-
+import AdminLayout from "../pages/Admin/AdminDashboard";
+import FoodManagement from "../pages/Admin/FoodManagement";
 // User
 import LayoutDefaults from "../Layout/LayoutDefaults";
 import Home from "../pages/User/Home/Home";
@@ -60,6 +61,14 @@ export const Router = [
       {
         path: "users",
         element: <UserListPage />
+      },
+      {
+        path: '/admin',
+        element: <AdminDashboard />
+      },
+      {
+        path: '/admin/foods',
+        element: <FoodManagement />
       }
     ]
   }

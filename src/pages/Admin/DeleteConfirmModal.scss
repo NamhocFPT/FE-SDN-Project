@@ -1,0 +1,108 @@
+.delete-confirm-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.delete-confirm-modal {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 400px;
+    overflow: hidden;
+}
+
+.modal-header {
+    padding: 20px 30px;
+    border-bottom: 1px solid #dee2e6;
+    background-color: #f8f9fa;
+    
+    h3 {
+        margin: 0;
+        color: #2c3e50;
+        font-size: 1.2rem;
+    }
+}
+
+.modal-body {
+    padding: 30px;
+    text-align: center;
+    
+    .warning-icon {
+        font-size: 3rem;
+        color: #f39c12;
+        margin-bottom: 20px;
+    }
+    
+    .message {
+        font-size: 1.1rem;
+        color: #2c3e50;
+        margin-bottom: 15px;
+        line-height: 1.5;
+    }
+    
+    .item-name {
+        font-size: 1rem;
+        color: #e74c3c;
+        margin-bottom: 15px;
+        padding: 10px;
+        background-color: #fdf2f2;
+        border-radius: 4px;
+        border-left: 4px solid #e74c3c;
+    }
+    
+    .warning-text {
+        font-size: 0.9rem;
+        color: #7f8c8d;
+        font-style: italic;
+        margin: 0;
+    }
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    padding: 20px 30px;
+    border-top: 1px solid #dee2e6;
+    background-color: #f8f9fa;
+    
+    .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        
+        &.btn-secondary {
+            background-color: #95a5a6;
+            color: white;
+            
+            &:hover {
+                background-color: #7f8c8d;
+            }
+        }
+        
+        &.btn-danger {
+            background-color: #e74c3c;
+            color: white;
+            
+            &:hover {
+                background-color: #c0392b;
+                transform: translateY(-1px);
+            }
+        }
+    }
+}
