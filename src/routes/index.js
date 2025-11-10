@@ -4,7 +4,7 @@ import NotFoundPage from "../pages/NotFound/NotFoundPage";
 import BlogPage from "../pages/User/Blog/BlogPage";
 import ContactPage from "../pages/User/Contact/ContactPage";
 import Home from "../pages/User/Home/Home";
-
+import ProductList from "../pages/User/ProductList/ProductList";
 // Admin imports
 import AdminLayout from "../pages/Admin/AdminLayout";
 import AdminDashboard from "../pages/Admin/AdminDashboard";
@@ -22,6 +22,10 @@ export const Router = [
             {
                 path: 'blog',
                 element: <BlogPage />
+            },
+            {
+                path: 'products',
+                element: < ProductList />
             },
             {
                 path: 'contact',
