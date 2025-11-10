@@ -17,24 +17,28 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:9999/users");
-      const users = await res.json();
-      const found = users.find(
-        (u) => u.email === formData.email && u.password === formData.password
-      );
+      const res = await fetch("http://localhost:9999/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
 
-      if (found) {
-        localStorage.setItem("user", JSON.stringify(found));
+      if (res.ok) {
+        //  Lưu user & token vào localStorage
+        localStorage.setItem("user", JSON.stringify(data.user));
+        localStorage.setItem("token", data.token);
+
         setIsSuccess(true);
-        setMessage("✅ Đăng nhập thành công!");
-        setTimeout(() => navigate("/"), 1500);
+        setMessage(" Đăng nhập thành công!");
+        setTimeout(() => navigate("/"), 1500); // → về Home
       } else {
         setIsSuccess(false);
-        setMessage("❌ Sai email hoặc mật khẩu!");
+        setMessage(` ${data.message || "Sai email hoặc mật khẩu!"}`);
       }
-    } catch {
+    } catch (err) {
       setIsSuccess(false);
-      setMessage("⚠️ Lỗi kết nối server!");
+      setMessage(" Lỗi kết nối server!");
     }
   };
 
@@ -43,11 +47,7 @@ export default function LoginPage() {
       <div className="auth-container">
         <h2>Đăng nhập</h2>
 
-        {message && (
-          <div className={`message ${isSuccess ? "success" : "error"}`}>
-            {message}
-          </div>
-        )}
+        {message && <div className={`message ${isSuccess ? "success" : "error"}`}>{message}</div>}
 
         <form onSubmit={handleSubmit} className="auth-form">
           <label>Email:</label>
@@ -70,14 +70,23 @@ export default function LoginPage() {
             required
           />
 
-          <button type="submit" className="btn-primary">Đăng nhập</button>
+          <button type="submit" className="btn-primary">
+            Đăng nhập
+          </button>
         </form>
 
         <div className="auth-links">
-          <p onClick={() => navigate("/forgot")} className="link">Quên mật khẩu?</p>
+          <p onClick={() => navigate("/forgot")} className="link">
+            Quên mật khẩu?
+          </p>
           <p>
             Chưa có tài khoản?{" "}
-            <span className="link" onClick={() => navigate("/register")}>Đăng ký</span>
+            <span className="link" onClick={() => navigate("/register")}>
+              Đăng ký
+            </span>
+          </p>
+          <p onClick={() => navigate("/")} className="link">
+            ⬅️ Về trang chủ
           </p>
         </div>
       </div>

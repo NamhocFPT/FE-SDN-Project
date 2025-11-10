@@ -5,7 +5,7 @@ import "./Auth.scss";
 export default function ForgotPasswordPage() {
   const navigate = useNavigate();
 
-  const [step, setStep] = useState(1); // 1: email, 2: mã, 3: mật khẩu
+  const [step, setStep] = useState(1);
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   const [generatedCode, setGeneratedCode] = useState("");
@@ -21,7 +21,6 @@ export default function ForgotPasswordPage() {
     return () => clearTimeout(t);
   }, [timer]);
 
-  // Bước 1: Gửi mã
   const handleSendCode = (e) => {
     e.preventDefault();
     if (!email.includes("@")) {
@@ -34,10 +33,9 @@ export default function ForgotPasswordPage() {
     setStep(2);
     setTimer(60);
     setIsSuccess(true);
-    setMessage(`Mã xác nhận đã được gửi tới email (code demo: ${randomCode})`);
+    setMessage(`Mã xác nhận đã được gửi (demo code: ${randomCode})`);
   };
 
-  // Bước 2: Xác nhận mã
   const handleVerifyCode = (e) => {
     e.preventDefault();
     if (code === generatedCode) {
@@ -50,7 +48,6 @@ export default function ForgotPasswordPage() {
     }
   };
 
-  // Bước 3: Đặt lại mật khẩu
   const handleResetPassword = (e) => {
     e.preventDefault();
     if (newPassword.length < 6) {
@@ -64,8 +61,8 @@ export default function ForgotPasswordPage() {
       return;
     }
     setIsSuccess(true);
-    setMessage("Đặt lại mật khẩu thành công! Chuyển hướng sau 2s...");
-    setTimeout(() => navigate("/login"), 2000);
+    setMessage(" Đặt lại mật khẩu thành công! Chuyển hướng sau 2s...");
+    setTimeout(() => navigate("/login"), 2000); // → sang Login
   };
 
   return (
@@ -73,13 +70,8 @@ export default function ForgotPasswordPage() {
       <div className="auth-container">
         <h2>Quên mật khẩu</h2>
 
-        {message && (
-          <div className={`message ${isSuccess ? "success" : "error"}`}>
-            {message}
-          </div>
-        )}
+        {message && <div className={`message ${isSuccess ? "success" : "error"}`}>{message}</div>}
 
-        {/* Bước 1: Nhập email */}
         {step === 1 && (
           <form onSubmit={handleSendCode} className="auth-form">
             <label>Nhập email đăng ký:</label>
@@ -96,7 +88,6 @@ export default function ForgotPasswordPage() {
           </form>
         )}
 
-        {/* Bước 2: Nhập mã xác nhận */}
         {step === 2 && (
           <form onSubmit={handleVerifyCode} className="auth-form">
             <label>Nhập mã xác nhận:</label>
@@ -109,12 +100,10 @@ export default function ForgotPasswordPage() {
             />
 
             <div className="btn-row">
-              <button type="submit" className="btn-primary">Xác nhận mã</button>
-              <button
-                type="button"
-                className="btn-cancel"
-                onClick={() => setStep(1)}
-              >
+              <button type="submit" className="btn-primary">
+                Xác nhận mã
+              </button>
+              <button type="button" className="btn-cancel" onClick={() => setStep(1)}>
                 Nhập lại email
               </button>
             </div>
@@ -130,7 +119,6 @@ export default function ForgotPasswordPage() {
           </form>
         )}
 
-        {/* Bước 3: Đặt lại mật khẩu */}
         {step === 3 && (
           <form onSubmit={handleResetPassword} className="auth-form">
             <label>Mật khẩu mới:</label>
@@ -141,7 +129,6 @@ export default function ForgotPasswordPage() {
               onChange={(e) => setNewPassword(e.target.value)}
               required
             />
-
             <label>Xác nhận mật khẩu:</label>
             <input
               type="password"
@@ -150,18 +137,20 @@ export default function ForgotPasswordPage() {
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
-
             <button type="submit" className="btn-primary">
               Cập nhật mật khẩu
             </button>
           </form>
         )}
 
-        <p style={{ marginTop: 15 }}>
-          <span className="link" onClick={() => navigate("/login")}>
-            Quay lại đăng nhập
-          </span>
-        </p>
+        <div className="auth-links">
+          <p onClick={() => navigate("/login")} className="link">
+            ⬅️ Quay lại đăng nhập
+          </p>
+          <p onClick={() => navigate("/")} className="link">
+            🏠 Về trang chủ
+          </p>
+        </div>
       </div>
     </div>
   );

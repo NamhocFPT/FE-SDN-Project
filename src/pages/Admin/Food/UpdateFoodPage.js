@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "./UpdateFoodPage.scss";
 
 export default function UpdateFoodPage() {
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: "",
     slug: "",
@@ -16,42 +18,62 @@ export default function UpdateFoodPage() {
     inStock: true,
     description: "",
   });
-  const [message, setMessage] = useState("");
 
+  const [categories, setCategories] = useState([]); // danh sách danh mục
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  // 🌐 URL API cố định
+  const FOOD_API = "http://localhost:9999/api/admin/foods";
+  const CATEGORY_API = "http://localhost:9999/api/admin/categories";
+
+  // 🧩 Lấy thông tin món ăn theo ID
   useEffect(() => {
     const fetchFood = async () => {
       try {
-        const res = await fetch("http://localhost:9999/foods");
-        if (!res.ok) throw new Error("Không thể tải dữ liệu");
+        const res = await fetch(`${FOOD_API}/${id}`);
+        if (!res.ok) throw new Error("Không thể tải dữ liệu món ăn");
+        const food = await res.json();
 
-        const data = await res.json();
-        const foundFood = data.find((f) => f._id === id);
-
-        if (foundFood) {
-          setFormData({
-            name: foundFood.name || "",
-            slug: foundFood.slug || "",
-            categoryId: foundFood.categoryId || "",
-            price: foundFood.price || "",
-            salePrice: foundFood.salePrice || "",
-            currency: foundFood.currency || "VND",
-            images: foundFood.images?.length ? [foundFood.images[0]] : [""],
-            tags: foundFood.tags?.join(", ") || "",
-            inStock: foundFood.inStock ?? true,
-            description: foundFood.description || "",
-          });
-        } else {
-          setMessage("Không tìm thấy món ăn với ID này");
-        }
+        setFormData({
+          name: food.name || "",
+          slug: food.slug || "",
+          categoryId: food.categoryId?._id || food.categoryId || "",
+          price: food.price || "",
+          salePrice: food.salePrice || "",
+          currency: food.currency || "VND",
+          images: food.images?.length ? [food.images[0]] : [""],
+          tags: food.tags?.join(", ") || "",
+          inStock: food.inStock ?? true,
+          description: food.description || "",
+        });
       } catch (err) {
-        console.error("Lỗi khi load dữ liệu:", err);
-        setMessage("Không thể tải dữ liệu món ăn");
+        console.error("❌ Lỗi khi tải dữ liệu món ăn:", err);
+        setMessage("⚠️ Không thể tải dữ liệu món ăn.");
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchFood();
   }, [id]);
 
+  // 🧩 Lấy danh mục
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch(CATEGORY_API);
+        if (!res.ok) throw new Error("Không thể tải danh mục");
+        const data = await res.json();
+        setCategories(data);
+      } catch (err) {
+        console.error("❌ Lỗi tải danh mục:", err);
+      }
+    };
+    fetchCategories();
+  }, []);
+
+  // 🧠 Xử lý thay đổi input
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -66,107 +88,146 @@ export default function UpdateFoodPage() {
     setFormData({ ...formData, images: newImages });
   };
 
+  // 🚀 Cập nhật món ăn
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage("⏳ Đang cập nhật...");
 
-    console.log("Updated food data:", formData);
+    try {
+      const payload = {
+        ...formData,
+        tags: formData.tags
+          .split(",")
+          .map((tag) => tag.trim())
+          .filter((tag) => tag.length > 0),
+      };
 
-    alert("Cập nhật thành công");
-    // Sau này bạn có thể thay bằng:
-    // await fetch(`http://localhost:9999/foods/${id}`, { method: "PATCH", ... })
+      const res = await fetch(`${FOOD_API}/${id}/update`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) throw new Error("Cập nhật thất bại");
+      const data = await res.json();
+      console.log("✅ Updated:", data);
+
+      setMessage("✅ Cập nhật thành công!");
+      setTimeout(() => navigate("/admin/foods"), 1200);
+
+    } catch (err) {
+      console.error("❌ Lỗi cập nhật:", err);
+      setMessage("⚠️ Cập nhật thất bại, vui lòng thử lại!");
+    }
   };
 
-  if (message)
+  // 🌀 Loading
+  if (loading)
+    return <p style={{ textAlign: "center", marginTop: 50 }}>Đang tải...</p>;
+
+  // ⚠️ Lỗi tải dữ liệu
+  if (message.startsWith("⚠️"))
     return (
-      <p style={{ color: "red", textAlign: "center", marginTop: "50px" }}>
+      <p style={{ color: "red", textAlign: "center", marginTop: 50 }}>
         {message}
       </p>
     );
 
+  // 🎨 Giao diện form
   return (
     <div className="update-food-page">
       <div className="update-container">
-        <h2>Update Food</h2>
+        <h2>Cập nhật món ăn</h2>
 
         {formData.images[0] && (
           <div className="image-header">
-            <img src={formData.images[0]} alt="Food" />
+            <img src={formData.images[0]} alt="Food Preview" />
           </div>
         )}
 
         <form className="update-form" onSubmit={handleSubmit}>
-          <div className="form-group">
+          {/* Tên món */}
+          <div>
             <label>Tên món ăn:</label>
             <input
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
-              placeholder="Nhập tên món ăn"
+              required
             />
           </div>
 
-          <div className="form-group">
+          {/* Slug */}
+          <div>
             <label>Slug:</label>
             <input
               type="text"
               name="slug"
               value={formData.slug}
               onChange={handleChange}
-              placeholder="Đường dẫn (slug)"
+              required
             />
           </div>
 
-          <div className="form-group">
-            <label>Danh mục (categoryId):</label>
-            <input
-              type="text"
+          {/* Danh mục */}
+          <div>
+            <label>Danh mục:</label>
+            <select
               name="categoryId"
               value={formData.categoryId}
               onChange={handleChange}
-              placeholder="Nhập ID danh mục"
-            />
+              required
+            >
+              <option value="">-- Chọn danh mục --</option>
+              {categories.map((cate) => (
+                <option key={cate._id} value={cate._id}>
+                  {cate.name}
+                </option>
+              ))}
+            </select>
           </div>
 
-        <div className="form-group price-group">
-        <div>
-            <label>Giá gốc:</label>
-            <input
-            type="number"
-            name="price"
-            value={formData.price}
-            onChange={handleChange}
-            placeholder="Nhập giá món ăn"
-            />
-        </div>
+          {/* Giá */}
+          <div className="price-group">
+            <div>
+              <label>Giá gốc:</label>
+              <input
+                type="number"
+                name="price"
+                value={formData.price}
+                onChange={handleChange}
+                required
+              />
+            </div>
 
-        <div>
-            <label>Giá khuyến mãi:</label>
-            <input
-            type="number"
-            name="salePrice"
-            value={formData.salePrice}
-            onChange={handleChange}
-            placeholder="Nhập giá sale (nếu có)"
-            />
-        </div>
+            <div>
+              <label>Giá khuyến mãi:</label>
+              <input
+                type="number"
+                name="salePrice"
+                value={formData.salePrice}
+                onChange={handleChange}
+              />
+            </div>
 
-        <div>
-            <label>Loại tiền:</label>
-            <select
-            className="currency-select"
-            name="currency"
-            value={formData.currency}
-            onChange={handleChange}
-            >
-            <option value="VND">VND</option>
-            <option value="USD">USD</option>
-            <option value="EUR">EUR</option>
-            </select>
-        </div>
-        </div>
+            <div>
+              <label>Loại tiền:</label>
+              <select
+                name="currency"
+                className="currency-select"
+                value={formData.currency}
+                onChange={handleChange}
+              >
+                <option value="VND">VND</option>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+              </select>
+            </div>
+          </div>
 
-          <div className="form-group">
+          {/* Ảnh */}
+          <div>
             <label>Ảnh:</label>
             <input
               type="text"
@@ -176,29 +237,31 @@ export default function UpdateFoodPage() {
             />
           </div>
 
-          <div className="form-group">
+          {/* Tags */}
+          <div>
             <label>Tags:</label>
             <input
               type="text"
               name="tags"
               value={formData.tags}
               onChange={handleChange}
-              placeholder="tag1, tag2, ..."
+              placeholder="drink, fruit..."
             />
           </div>
 
-          <div className="form-group checkbox-label">
+          {/* Còn hàng */}
+          <div className="checkbox-label">
             <span>Còn hàng</span>
             <input
-                type="checkbox"
-                name="inStock"
-                checked={formData.inStock}
-                onChange={handleChange}
+              type="checkbox"
+              name="inStock"
+              checked={formData.inStock}
+              onChange={handleChange}
             />
-            </div>
+          </div>
 
-
-          <div className="form-group">
+          {/* Mô tả */}
+          <div>
             <label>Mô tả:</label>
             <textarea
               name="description"
@@ -208,6 +271,7 @@ export default function UpdateFoodPage() {
             />
           </div>
 
+          {/* Nút */}
           <div className="btn-group">
             <button type="submit" className="btn-update">
               Cập nhật
@@ -215,12 +279,26 @@ export default function UpdateFoodPage() {
             <button
               type="button"
               className="btn-cancel"
-              onClick={() => window.history.back()}
+              onClick={() => navigate(-1)}
             >
               Hủy
             </button>
           </div>
         </form>
+
+        {/* Thông báo */}
+        {message && (
+          <p
+            style={{
+              color: message.startsWith("✅") ? "#2ecc71" : "#e74c3c",
+              marginTop: 15,
+              fontWeight: 600,
+              textAlign: "center",
+            }}
+          >
+            {message}
+          </p>
+        )}
       </div>
     </div>
   );

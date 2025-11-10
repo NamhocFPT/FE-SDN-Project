@@ -10,6 +10,11 @@ import LoginPage from "../pages/User/Auth/LoginPage";
 import RegisterPage from "../pages/User/Auth/RegisterPage";
 import ForgotPasswordPage from "../pages/User/Auth/ForgotPasswordPage";
 
+// 🧩 Thêm 3 trang mới
+import FeedbackPage from "../pages/User/Feedback/FeedbackPage";
+import AdminFeedbackPage from "../pages/Admin/Feedback/AdminFeedbackPage";
+import AdminBlogPage from "../pages/Admin/Blog/AdminBlogPage";
+
 export const Router = [
   {
     path: "/",
@@ -18,13 +23,23 @@ export const Router = [
       { path: "/", element: <Home /> },
       { path: "blog", element: <BlogPage /> },
       { path: "contact", element: <ContactPage /> },
-      { path: "admin/foods/update/:id", element: <UpdateFoodPage /> },
+
+      // ✅ Feedback cho user
+      { path: "feedback", element: <FeedbackPage /> },
+
+      // ✅ Admin pages
+      { path: "admin/foods/:id/update", element: <UpdateFoodPage /> },
+      { path: "admin/feedbacks", element: <AdminFeedbackPage /> },
+      { path: "admin/blogs", element: <AdminBlogPage /> },
+
+      // 404
       { path: "*", element: <NotFoundPage /> },
     ],
   },
 
-  // 🔐 Auth routes — nằm ngoài layout chính
+  // ✅ Auth routes (nằm ngoài layout)
   { path: "/login", element: <LoginPage /> },
   { path: "/register", element: <RegisterPage /> },
   { path: "/forgot", element: <ForgotPasswordPage /> },
 ];
+
