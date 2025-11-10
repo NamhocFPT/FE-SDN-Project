@@ -2,7 +2,7 @@ import {dele, get, patch, post} from "../ultils/request.js";
 
 
 export const getProductList = async () => {
-    const result = await get('foods');
+    const result = await get('api/food');
     return result;
 }
 
