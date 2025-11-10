@@ -1,20 +1,31 @@
-import React from "react";
-import { Navigate } from "react-router-dom";
+// src/components/ProtectedRoute.jsx
+import React from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext'; // <-- 1. Import useAuth
 
-// roles = ["admin"] hoặc ["user"]
 const ProtectedRoute = ({ children, roles }) => {
-  const user = JSON.parse(localStorage.getItem("user")); // giả sử lưu user vào localStorage khi login
+  // 2. Lấy state từ Context, KHÔNG đọc localStorage
+  const { isAuthenticated, user, loading } = useAuth(); 
+  const location = useLocation();
 
-  if (!user) {
-    // chưa login → chuyển về login page
-    return <Navigate to="/login" />;
+  // 3. Xử lý trạng thái Loading (RẤT QUAN TRỌNG)
+  // Trong khi context đang kiểm tra localStorage, ta phải chờ
+  if (loading) {
+    return <div>Đang kiểm tra quyền truy cập...</div>; // Hoặc component Spinner
   }
 
+  // 4. Kiểm tra đã đăng nhập chưa (dùng isAuthenticated)
+  if (!isAuthenticated) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  // 5. Kiểm tra vai trò (dùng user từ context)
   if (roles && !roles.includes(user.role)) {
-    // không có quyền
-    return <Navigate to="/" />;
+    // Đã đăng nhập nhưng sai role (ví dụ user vào /admin)
+    return <Navigate to="/404" replace />; // Chuyển về 404 hoặc trang chủ
   }
 
+  // 6. Nếu mọi thứ OK, cho phép vào
   return children;
 };
 
