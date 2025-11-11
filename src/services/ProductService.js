@@ -1,4 +1,4 @@
-import {dele, get, patch, post,put } from "../ultils/request.js";
+import { dele, get, patch, post, put } from "../ultils/request.js";
 
 // Hàm tiện ích đã sửa để trả về TOÀN BỘ OBJECT RESULT cho getProductList
 const handleServiceResult = (result, defaultErrorMessage, returnFullResult = false) => {
@@ -20,7 +20,7 @@ const handleServiceResult = (result, defaultErrorMessage, returnFullResult = fal
 // 1. Lấy danh sách MÓN ĂN NỔI BẬT: GET /api/food/featured
 export const getFeaturedFoods = async (limit = 6) => {
     try {
-        const result = await get(`food/featured?limit=${limit}`);
+        const result = await get(`api/food/featured?limit=${limit}`);
         // Không truyền true, nên chỉ trả về data
         return handleServiceResult(result, "Lỗi khi tải món ăn nổi bật.");
     } catch (error) {
@@ -31,7 +31,7 @@ export const getFeaturedFoods = async (limit = 6) => {
 // 2. Lấy danh sách CATEGORY: GET /api/category
 export const getCategoryList = async () => {
     try {
-        const result = await get('category');
+        const result = await get('api/category');
         // Không truyền true, nên chỉ trả về data
         return handleServiceResult(result, "Lỗi khi tải danh mục.");
     } catch (error) {
@@ -44,7 +44,7 @@ export const getProductList = async (params = {}) => {
     const queryString = new URLSearchParams(params).toString();
 
     try {
-        const result = await get(`food?${queryString}`);
+        const result = await get(`api/food?${queryString}`);
         // 🎯 TRUYỀN TRUE: Yêu cầu trả về toàn bộ object (chứa data và pagination)
         return handleServiceResult(result, "Lỗi khi tải danh sách sản phẩm.", true);
     } catch (error) {
@@ -80,7 +80,7 @@ export const getFoodDetail = async (idOrSlug) => {
 
     try {
         // Gọi API: GET /api/food/idOrSlug
-        const result = await get(`food/${idOrSlug}`);
+        const result = await get(`api/food/${idOrSlug}`);
 
         // Giả định BE trả về { success: true, data: { ... } }
         if (!result || result.success === false) {
@@ -96,7 +96,7 @@ export const getFoodDetail = async (idOrSlug) => {
 };
 //  Update món ăn
 export const updateFood = async (id, data) => {
-  const result = await put(`api/admin/foods/${id}/update`, data);
-  return result;
+    const result = await put(`api/admin/foods/${id}/update`, data);
+    return result;
 
 };
