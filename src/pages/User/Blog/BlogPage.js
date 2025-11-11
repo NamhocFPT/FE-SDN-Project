@@ -37,10 +37,13 @@ const BlogPage = () => {
         if (categoryId === 'all') {
             setFilteredBlogs(allBlogs);
         } else {
-            const filtered = allBlogs.filter(blog => blog.blogCategoryId === categoryId);
+            console.log(categoryId)
+            console.log("Dữ liệu trên blog (để so sánh):", allBlogs[0].blogCategoryId);
+            const filtered = allBlogs.filter(blog => blog.blogCategoryId._id === categoryId);
             setFilteredBlogs(filtered);
         }
     };
+    console.log(filteredBlogs)
 
     if (loading) return <div className="status-message">Đang tải trang Blog...</div>;
     if (error) return <div className="status-message error">Lỗi: {error}</div>;

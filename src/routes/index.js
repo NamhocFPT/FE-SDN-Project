@@ -1,7 +1,19 @@
+import { Navigate } from "react-router-dom";
+import ProtectedRoute from "../components/ProtectedRoute";
+
+// Admin
+import AdminLayout from "../pages/Admin/AdminLayout/AdminLayout";
+import DashboardPage from "../pages/Admin/Dashboard/DashboardPage";
+import OrderListPage from "../pages/Admin/OrderList/OrderListPage";
+import UserListPage from "../pages/Admin/UserList/UserListPage";
+import AdminLayout from "../pages/Admin/AdminDashboard";
+import FoodManagement from "../pages/Admin/FoodManagement";
+// User
 import LayoutDefaults from "../Layout/LayoutDefaults";
-import NotFoundPage from "../pages/NotFound/NotFoundPage";
+import Home from "../pages/User/Home/Home";
 import BlogPage from "../pages/User/Blog/BlogPage";
 import ContactPage from "../pages/User/Contact/ContactPage";
+
 import Home from "../pages/User/Home/Home";
 import UpdateFoodPage from "../pages/Admin/Food/UpdateFoodPage";
 
@@ -14,6 +26,9 @@ import ForgotPasswordPage from "../pages/User/Auth/ForgotPasswordPage";
 import FeedbackPage from "../pages/User/Feedback/FeedbackPage";
 import AdminFeedbackPage from "../pages/Admin/Feedback/AdminFeedbackPage";
 import AdminBlogPage from "../pages/Admin/Blog/AdminBlogPage";
+
+import NotFoundPage from "../pages/NotFound/NotFoundPage";
+
 
 export const Router = [
   {

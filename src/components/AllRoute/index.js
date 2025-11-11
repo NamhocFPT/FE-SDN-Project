@@ -1,5 +1,5 @@
 import { useRoutes } from "react-router-dom";
-import { Router } from "../../routes/index.js";
+import { Router } from "../../routes/index";
 
 function AllRoute() {
     const element = useRoutes(Router);
