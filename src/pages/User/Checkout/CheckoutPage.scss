@@ -1,0 +1,183 @@
+/* Biến màu chủ đạo */
+$primary-color: #007bff;
+$danger-color: #dc3545;
+$success-color: #28a745;
+$light-bg: #f8f9fa;
+$border-color: #e0e0e0;
+$text-color: #333;
+
+.checkout-page-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    color: $text-color;
+}
+
+.checkout-page-title {
+    text-align: center;
+    color: $text-color;
+    margin-bottom: 30px;
+    font-size: 2.2em;
+    font-weight: 700;
+}
+
+.checkout-grid {
+    display: grid;
+    grid-template-columns: 2fr 1.2fr;
+    gap: 30px;
+
+    @media (max-width: 992px) {
+        grid-template-columns: 1fr; // Chuyển thành 1 cột
+    }
+}
+
+/* Cột trái: Form giao hàng */
+.shipping-form {
+    h2 {
+        font-size: 1.6em;
+        font-weight: 600;
+        margin-bottom: 20px;
+        border-bottom: 1px solid $border-color;
+        padding-bottom: 10px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+
+        label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid $border-color;
+            border-radius: 6px;
+            font-size: 1em;
+            &:focus {
+                outline: none;
+                border-color: $primary-color;
+                box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
+            }
+        }
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+    }
+
+    .payment-options {
+        .payment-option {
+            display: block;
+            padding: 15px;
+            border: 1px solid $border-color;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            
+            input[type="radio"] {
+                margin-right: 10px;
+                accent-color: $primary-color;
+            }
+        }
+    }
+}
+
+/* Cột phải: Tóm tắt đơn hàng */
+.order-summary {
+    background-color: $light-bg;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    padding: 25px;
+    height: fit-content; // Tự co giãn
+    position: sticky; // Dính lại khi cuộn
+    top: 20px;
+
+    h2 {
+        font-size: 1.6em;
+        font-weight: 600;
+        margin-bottom: 20px;
+        border-bottom: 1px solid $border-color;
+        padding-bottom: 10px;
+    }
+
+    .summary-items-list {
+        max-height: 300px;
+        overflow-y: auto;
+        padding-right: 10px;
+    }
+
+    .summary-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+
+    .summary-item-image {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 6px;
+        border: 1px solid $border-color;
+    }
+
+    .summary-item-info {
+        flex-grow: 1;
+        .item-name {
+            display: block;
+            font-weight: 500;
+        }
+    }
+
+    .item-total {
+        font-weight: 600;
+    }
+
+    .summary-totals {
+        border-top: 1px dashed $border-color;
+        margin-top: 20px;
+        padding-top: 20px;
+    }
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        font-size: 1.1em;
+
+        &.grand-total {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: $primary-color;
+            margin-top: 15px;
+        }
+    }
+
+    .place-order-button {
+        width: 100%;
+        padding: 15px;
+        background-color: $success-color;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 1.3em;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 25px;
+        transition: background-color 0.2s;
+
+        &:hover:not(:disabled) {
+            background-color: darken($success-color, 10%);
+        }
+        &:disabled {
+            background-color: #cccccc;
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+    }
+}
