@@ -1,4 +1,4 @@
-import {dele, get, patch, post} from "../ultils/request.js";
+import {dele, get, patch, post,put } from "../ultils/request.js";
 
 
 export const getProductList = async () => {
@@ -11,3 +11,8 @@ export const getCategoryList = async () => {
     return result;
 }
 
+//  Update món ăn
+export const updateFood = async (id, data) => {
+  const result = await put(`api/admin/foods/${id}/update`, data);
+  return result;
+};
