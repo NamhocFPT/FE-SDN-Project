@@ -1,0 +1,106 @@
+/* Biến màu chủ đạo */
+$primary-color: #007bff;
+$danger-color: #dc3545;
+$success-color: #28a745;
+$light-bg: #f8f9fa;
+$border-color: #e0e0e0;
+$text-color: #333;
+
+.cart-page-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.cart-page-title {
+    text-align: center;
+    color: $text-color;
+    margin-bottom: 30px;
+    font-size: 2.2em;
+    font-weight: 700;
+    border-bottom: 2px solid $border-color;
+    padding-bottom: 15px;
+}
+
+/* Kiểu cho giỏ hàng trống */
+.cart-empty-container {
+    text-align: center;
+    padding: 50px 0;
+}
+.cart-empty-message {
+    font-size: 1.3em;
+    color: #666;
+    margin-bottom: 25px;
+}
+.continue-shopping-btn {
+    background-color: $primary-color;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: background-color 0.2s;
+    &:hover {
+        background-color: darken($primary-color, 10%);
+    }
+}
+
+/* Nội dung giỏ hàng */
+.cart-content {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap; 
+}
+
+.cart-items-list {
+    flex: 3;
+    min-width: 600px;
+}
+
+.cart-select-all {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: $light-bg;
+    border-radius: 6px;
+    border: 1px solid $border-color;
+
+    input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        accent-color: $primary-color;
+        cursor: pointer;
+    }
+
+    label {
+        font-size: 1.1em;
+        font-weight: 600;
+        color: $text-color;
+        cursor: pointer;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .cart-content {
+        flex-direction: column;
+        align-items: center;
+    }
+    .cart-items-list, .cart-summary {
+        min-width: unset;
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .cart-page-container {
+        margin: 20px auto;
+        padding: 15px;
+    }
+}
