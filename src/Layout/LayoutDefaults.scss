@@ -104,6 +104,32 @@ a {
         gap: 20px;
     }
 
+    .cart-badge {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 20px;
+        background: #fff;
+        color: #333;
+        text-decoration: none;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+        transition: background .2s;
+    }
+    .cart-badge:hover {
+        background: #f4f4f4;
+    }
+    .cart-badge__icon {
+        font-size: 18px;
+    }
+    .cart-badge__count {
+        min-width: 18px;
+        text-align: center;
+        font-size: 14px;
+    }
+
     &__search {
         display: flex;
         align-items: center;

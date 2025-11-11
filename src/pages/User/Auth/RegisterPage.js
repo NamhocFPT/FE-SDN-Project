@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
+import { useAuth } from "../../../context/AuthContext";
 import "./Auth.scss";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
+  const { isAuthenticated, loading } = useAuth();
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -41,6 +43,11 @@ export default function RegisterPage() {
       setMessage(" Lỗi kết nối server!");
     }
   };
+
+  // Nếu đã đăng nhập thì không cho vào trang register nữa
+  if (!loading && isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <div className="auth-page">

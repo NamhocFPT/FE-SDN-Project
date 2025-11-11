@@ -1,13 +1,11 @@
 import { get } from "../ultils/request";
 
-
+// Public blogs (published) list
 export const getBlogList = async () => {
-    const result = await get('api/blog');
-    return result;
-}
+  return await get("blog"); // maps to GET /api/blog
+};
 
-
+// Blog categories list (plural path per backend)
 export const getBlogCategoryList = async () => {
-    const result = await get('api/blog-category');
-    return result;
-}
+  return await get("blog-categories"); // maps to GET /api/blog-categories
+};

@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+// import { Navigate } from "react-router-dom";
 import ProtectedRoute from "../components/ProtectedRoute";
 
 // 🧩 Layouts
@@ -12,6 +12,9 @@ import ContactPage from "../pages/User/Contact/ContactPage";
 import ProductList from "../pages/User/ProductList/ProductList";
 import ProductDetail from "../pages/User/ProductDetail/ProductDetail";
 import FeedbackPage from "../pages/User/Feedback/FeedbackPage";
+import CartPage from "../pages/User/Cart/CartPage";
+import CheckoutPage from "../pages/User/Checkout/CheckoutPage";
+import OrderHistoryPage from "../pages/User/Orders/OrderHistoryPage";
 
 // 🧩 Auth Pages
 import LoginPage from "../pages/User/Auth/LoginPage";
@@ -39,6 +42,9 @@ export const Router = [
       { path: "contact", element: <ContactPage /> },
       { path: "products", element: <ProductList /> },
       { path: "products/:idOrSlug", element: <ProductDetail /> },
+      { path: "cart", element: <CartPage /> },
+      { path: "checkout", element: <CheckoutPage /> },
+      { path: "orders", element: <OrderHistoryPage /> },
       { path: "feedback", element: <FeedbackPage /> },
       { path: "*", element: <NotFoundPage /> },
     ],

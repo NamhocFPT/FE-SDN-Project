@@ -4,7 +4,8 @@ import './CartItem.scss'; // Import SCSS riêng
 const CartItem = ({ item, onQuantityChange, onRemove, onSelect, isSelected }) => {
     
     const formatCurrency = (amount) => {
-        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+        const n = Number(amount);
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(Number.isFinite(n) ? n : 0);
     };
 
     return (

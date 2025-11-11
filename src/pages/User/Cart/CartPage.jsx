@@ -3,7 +3,7 @@ import './CartPage.scss'; // Import SCSS
 import CartItem from './CartItem/CartItem';
 import CartSummary from './CartSummary/CartSummary';
 // Import các hàm service đã được viết lại
-import { getCart, updateCartItemQuantity, removeCartItem, checkout } from '../../../services/CartService';
+import { getCart, updateCartItemQuantity, removeCartItem } from '../../../services/CartService';
 import { Link, useNavigate } from 'react-router-dom';
 
 const CartPage = () => {
@@ -17,12 +17,23 @@ const CartPage = () => {
             setLoading(true);
             const itemsFromAPI = await getCart();
 
-            const itemsWithSelection = itemsFromAPI.map(item => ({
-                ...item,
-                id: item._id,
-                image: item.foodId?.images?.[0] || 'https://via.placeholder.com/100',
-                isSelected: true
-            }));
+            const itemsWithSelection = itemsFromAPI.map(item => {
+                const id = item.id || item._id;
+                const unitPrice = Number(item.unitPrice) || 0;
+                const quantity = Number(item.quantity) || 0;
+                const lineTotal = Number.isFinite(item.lineTotal)
+                  ? Number(item.lineTotal)
+                  : unitPrice * quantity;
+                return {
+                    ...item,
+                    id,
+                    unitPrice,
+                    quantity,
+                    lineTotal,
+                    image: item.foodId?.images?.[0] || 'https://via.placeholder.com/100',
+                    isSelected: true,
+                };
+            });
 
             setCartItems(itemsWithSelection);
             setSelectedItems(itemsWithSelection.map(item => item.id));
@@ -111,7 +122,8 @@ const CartPage = () => {
     const calculateSubtotal = () => {
         return cartItems.reduce((total, item) => {
             if (selectedItems.includes(item.id)) {
-                return total + item.lineTotal;
+                const lt = Number(item.lineTotal);
+                return total + (Number.isFinite(lt) ? lt : 0);
             }
             return total;
         }, 0);

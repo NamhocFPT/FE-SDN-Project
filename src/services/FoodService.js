@@ -1,55 +1,40 @@
-import { get, post, patch, dele } from "../ultils/request.js";
+import { get, put, post, dele } from "../ultils/request.js";
 
-// Lấy danh sách tất cả food
-export const getFoodList = async () => {
-    const result = await get('foods');
-    return result;
+// NOTE: Backend food routes mounted at /api/food (listFoods supports query params)
+export const getFoodList = async (params = {}) => {
+  const qs = new URLSearchParams(params).toString();
+  const result = await get(`food${qs ? `?${qs}` : ""}`); // GET /api/food
+  // Normalize to array for admin UI consumers
+  if (Array.isArray(result)) return result;
+  if (result && result.success && Array.isArray(result.data))
+    return result.data;
+  return [];
 };
 
-// Lấy thông tin một food theo ID
 export const getFoodById = async (id) => {
-    const result = await get(`foods/${id}`);
-    return result;
+  return await get(`food/${id}`); // GET /api/food/:id
 };
 
-// Thêm món ăn mới
+export const getFoodByIdOrSlug = async (idOrSlug) => {
+  return await get(`food/${idOrSlug}`); // unified route
+};
+
+// Admin create (mounted under /api/admin/foods)
 export const createFood = async (foodData) => {
-    const result = await post('foods', foodData);
-    return result;
+  return await post(`admin/foods/add`, foodData); // POST /api/admin/foods/add
 };
 
-// Cập nhật thông tin món ăn (chú ý truyền id vào tham số thứ 3)
+// Admin update
 export const updateFood = async (id, foodData) => {
-    const result = await patch('foods', foodData, id);
-    return result;
+  return await put(`admin/foods/${id}/update`, foodData); // PUT /api/admin/foods/:id/update
 };
 
-// Xóa món ăn (chú ý truyền id vào tham số thứ 2)
+// Featured list
+export const getFeaturedFoods = async (limit = 8) => {
+  return await get(`food/featured?limit=${limit}`); // GET /api/food/featured
+};
+
+// Admin delete
 export const deleteFood = async (id) => {
-    const result = await dele('foods', id);
-    return result;
-};
-
-// Tìm kiếm món ăn theo tên
-export const searchFoods = async (query) => {
-    const result = await get(`foods?q=${encodeURIComponent(query)}`);
-    return result;
-};
-
-// Lấy món ăn theo danh mục (categoryId)
-export const getFoodsByCategory = async (categoryId) => {
-    const result = await get(`foods?categoryId=${categoryId}`);
-    return result;
-};
-
-// Lấy món ăn có khuyến mãi
-export const getFoodsOnSale = async () => {
-    const result = await get('foods?sale=true');
-    return result;
-};
-
-// Lấy món ăn còn hàng
-export const getAvailableFoods = async () => {
-    const result = await get('foods?inStock=true');
-    return result;
+  return await dele(`admin/foods`, id); // DELETE /api/admin/foods/:id
 };

@@ -1,16 +1,16 @@
-import { get, post, patch, dele } from "../ultils/request";
+import { get, post, put, dele } from "../ultils/request";
 
-// Sử dụng 'api/' prefix giống như file ví dụ của bạn
-const API_PREFIX = 'api/cart';
+// Backend mounts at /api/cart
+const API_PREFIX = "cart";
 
 /**
  * Lấy giỏ hàng của user hiện tại.
  * GET /api/cart
  */
 export const getCart = async () => {
-    // Giả định backend trả về { items: [...] } hoặc []
-    const result = await get(API_PREFIX); 
-    return result?.items || [];
+  const result = await get(API_PREFIX);
+  // Return full object so FE can access totals, items, etc.
+  return result.items ? result.items : [];
 };
 
 /**
@@ -18,8 +18,9 @@ export const getCart = async () => {
  * PATCH /api/cart/items/:itemId
  */
 export const updateCartItemQuantity = async (itemId, quantity) => {
-    const result = await patch(`${API_PREFIX}/items`, { quantity }, itemId);
-    return result; // Trả về item đã cập nhật
+  // Backend expects PUT /api/cart/items/:itemId
+  const result = await put(`${API_PREFIX}/items/${itemId}`, { quantity });
+  return result.item || result; // Return updated item
 };
 
 /**
@@ -27,8 +28,8 @@ export const updateCartItemQuantity = async (itemId, quantity) => {
  * DELETE /api/cart/items/:itemId
  */
 export const removeCartItem = async (itemId) => {
-    const result = await dele(`${API_PREFIX}/items`, itemId);
-    return result; // Trả về thông báo thành công
+  const result = await dele(`${API_PREFIX}/items`, itemId);
+  return result; // { message, itemId }
 };
 
 /**
@@ -36,6 +37,8 @@ export const removeCartItem = async (itemId) => {
  * POST /api/cart/checkout
  */
 export const checkout = async (selectedItemIds) => {
-    const result = await post(`${API_PREFIX}/checkout`, { selectedItemIds });
-    return result; // Trả về đơn hàng đã tạo
+  const result = await post(`${API_PREFIX}/checkout`, {
+    cartItemIds: selectedItemIds,
+  });
+  return result; // { message, order, cartItemsProcessed }
 };

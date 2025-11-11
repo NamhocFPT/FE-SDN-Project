@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../../../context/AuthContext";
 import "./Auth.scss";
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { isAuthenticated, loading, login } = useAuth();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [message, setMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
@@ -25,13 +28,12 @@ export default function LoginPage() {
       const data = await res.json();
 
       if (res.ok) {
-        //  Lưu user & token vào localStorage
-        localStorage.setItem("user", JSON.stringify(data.user));
-        localStorage.setItem("token", data.token);
-
+        // Use context helper to update state + localStorage
+        login(data.user, data.token);
         setIsSuccess(true);
         setMessage(" Đăng nhập thành công!");
-        setTimeout(() => navigate("/"), 1500); // → về Home
+        const redirectTo = location.state?.from?.pathname || "/";
+        setTimeout(() => navigate(redirectTo, { replace: true }), 700);
       } else {
         setIsSuccess(false);
         setMessage(` ${data.message || "Sai email hoặc mật khẩu!"}`);
@@ -42,12 +44,22 @@ export default function LoginPage() {
     }
   };
 
+  // If already logged in, redirect away from login
+  if (!loading && isAuthenticated) {
+    const redirectTo = location.state?.from?.pathname || "/";
+    return <Navigate to={redirectTo} replace />;
+  }
+
   return (
     <div className="auth-page">
       <div className="auth-container">
         <h2>Đăng nhập</h2>
 
-        {message && <div className={`message ${isSuccess ? "success" : "error"}`}>{message}</div>}
+        {message && (
+          <div className={`message ${isSuccess ? "success" : "error"}`}>
+            {message}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="auth-form">
           <label>Email:</label>

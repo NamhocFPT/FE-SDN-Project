@@ -1,25 +1,21 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate, Navigate } from 'react-router-dom';
-import { useAuth } from '../../../context/AuthContext'; // Để lấy thông tin user
-import { createOrder } from '../../../services/OrderService'; // Service mới
+import { useAuth } from '../../../context/AuthContext'; // Lấy thông tin user đăng nhập
+import { createOrder } from '../../../services/OrderService'; // Tạo đơn hàng
 import './CheckoutPage.scss';
 
 const CheckoutPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const { user } = useAuth(); // Lấy user đang đăng nhập từ context
+    const { user } = useAuth(); // User từ AuthContext
 
-    // 1. Lấy dữ liệu được gửi từ CartPage
+    // Lấy dữ liệu được gửi từ CartPage (có thể undefined nếu truy cập trực tiếp)
     const data = location.state;
-
-    // Nếu không có dữ liệu (ví dụ: gõ /checkout trực tiếp), quay về giỏ hàng
-    if (!data || !data.items || data.items.length === 0) {
-        return <Navigate to="/cart" replace />;
-    }
-
-    const { items, subtotal } = data;
-    const shippingFee = 30000; // Phí ship (ví dụ cố định)
+    const items = data?.items || [];
+    const subtotal = data?.subtotal || 0;
+    const shippingFee = 30000; // Phí ship cố định (có thể tách cấu hình sau)
     const grandTotal = subtotal + shippingFee;
+    const shouldRedirectToCart = items.length === 0; // Điều kiện redirect nhưng không làm hook bị điều kiện
 
     // 2. State cho form thông tin giao hàng
     // Tự động điền thông tin nếu user đã có
@@ -66,9 +62,8 @@ const CheckoutPage = () => {
             
             // Gọi API
             const createdOrder = await createOrder(orderData);
-            
             // Thành công
-            alert(`Đặt hàng thành công! Mã đơn hàng của bạn là: ${createdOrder.code}`);
+            alert(`Đặt hàng thành công! Mã đơn hàng của bạn là: ${createdOrder?.code || createdOrder?.id || 'N/A'}`);
             navigate('/'); // Chuyển về trang chủ
 
         } catch (error) {
@@ -81,6 +76,11 @@ const CheckoutPage = () => {
         return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
     };
 
+    // Redirect an toàn sau khi đã gọi hooks: không trả về trước khi hooks được chạy
+    if (shouldRedirectToCart) {
+        return <Navigate to="/cart" replace />;
+    }
+
     return (
         <div className="checkout-page-container">
             <h1 className="checkout-page-title">Thanh Toán Đơn Hàng</h1>
@@ -89,7 +89,7 @@ const CheckoutPage = () => {
                 {/* CỘT BÊN TRÁI: THÔNG TIN GIAO HÀNG */}
                 <div className="shipping-form">
                     <h2>Thông tin giao hàng</h2>
-                    <p>Đăng nhập với email: <strong>{user.email}</strong></p>
+                    <p>Đăng nhập với email: <strong>{user?.email || '---'}</strong></p>
                     
                     <div className="form-group">
                         <label htmlFor="fullName">Họ và tên *</label>

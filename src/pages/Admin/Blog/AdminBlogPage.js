@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { get, post } from "../../../ultils/request";
+import { put, dele } from "../../../ultils/request";
 import "./AdminBlogPage.scss";
 
 export default function AdminBlogPage() {
@@ -17,8 +19,7 @@ export default function AdminBlogPage() {
 
   const loadBlogs = async () => {
     try {
-      const res = await fetch("http://localhost:9999/api/blogs");
-      const data = await res.json();
+      const data = await get("blogs");
       setBlogs(data);
     } catch (err) {
       console.error(" Lỗi khi tải blog:", err);
@@ -27,8 +28,7 @@ export default function AdminBlogPage() {
 
   const loadCategories = async () => {
     try {
-      const res = await fetch("http://localhost:9999/api/blog-categories");
-      const data = await res.json();
+      const data = await get("blog-categories");
       setCategories(data);
     } catch (err) {
       console.error(" Lỗi khi tải category:", err);
@@ -37,8 +37,7 @@ export default function AdminBlogPage() {
 
   const loadAuthors = async () => {
     try {
-      const res = await fetch("http://localhost:9999/api/users");
-      const data = await res.json();
+      const data = await get("users");
       const filtered = data.filter(
         (u) =>
           u.roleId?.name?.toLowerCase() === "admin" ||
@@ -75,34 +74,25 @@ export default function AdminBlogPage() {
     };
 
     const isEditing = !!editingId;
-    const url = isEditing
-      ? `http://localhost:9999/api/blogs/${editingId}`
-      : "http://localhost:9999/api/blogs";
-    const method = isEditing ? "PUT" : "POST";
-
     try {
-      const res = await fetch(url, {
-        method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      if (res.ok) {
-        alert(isEditing ? "✅ Cập nhật blog thành công" : "✅ Thêm blog thành công");
-        setForm({
-          title: "",
-          content: "",
-          coverImage: "",
-          authorId: "",
-          blogCategoryId: "",
-          published: false,
-        });
-        setEditingId(null);
-        loadBlogs();
+      if (isEditing) {
+        await put(`blogs/${editingId}`, payload);
       } else {
-        const errText = await res.text();
-        alert(" Lỗi khi lưu blog: " + errText);
+        await post("blogs", payload);
       }
+      alert(
+        isEditing ? "✅ Cập nhật blog thành công" : "✅ Thêm blog thành công"
+      );
+      setForm({
+        title: "",
+        content: "",
+        coverImage: "",
+        authorId: "",
+        blogCategoryId: "",
+        published: false,
+      });
+      setEditingId(null);
+      loadBlogs();
     } catch (err) {
       console.error(" Lỗi khi lưu blog:", err);
     }
@@ -110,7 +100,7 @@ export default function AdminBlogPage() {
 
   const handleDelete = async (id) => {
     if (!window.confirm("Xóa bài viết này?")) return;
-    await fetch(`http://localhost:9999/api/blogs/${id}`, { method: "DELETE" });
+    await dele("blogs", id);
     loadBlogs();
   };
 
@@ -274,7 +264,7 @@ export default function AdminBlogPage() {
                   className="btn-update"
                   onClick={() => handleEdit(b)}
                 >
-                   Sửa
+                  Sửa
                 </button>
                 <button
                   type="button"
