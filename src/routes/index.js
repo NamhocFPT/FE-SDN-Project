@@ -54,7 +54,7 @@ export const Router = [
   {
     path: "/admin",
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute roles={["admin"]}>
         <AdminLayout />
       </ProtectedRoute>
     ),

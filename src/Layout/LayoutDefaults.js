@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import "./LayoutDefaults.scss";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import CartBadge from "../components/CartBadge.jsx";
+import UserMenu from "../components/UserMenu.jsx";
 import { useAuth } from "../context/AuthContext";
 
 const LayoutDefaults = () => {
   const navigate = useNavigate();
-  const { isAuthenticated, logout } = useAuth();
+  // Auth values no longer directly used here; UserMenu consumes context
+  useAuth();
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearch = () => {
@@ -88,31 +90,7 @@ const LayoutDefaults = () => {
               <button onClick={handleSearch}>🔍</button>
             </div>
             <CartBadge />
-            {isAuthenticated ? (
-              <div className="header__user-auth">
-                <Link
-                  to="/orders"
-                  className="header__user-icon"
-                  title="Đơn hàng của tôi"
-                >
-                  📦
-                </Link>
-                <button
-                  type="button"
-                  className="header__logout-btn"
-                  onClick={() => {
-                    logout();
-                    navigate("/login");
-                  }}
-                >
-                  🚪
-                </button>
-              </div>
-            ) : (
-              <Link to="/login" className="header__user-icon" title="Đăng nhập">
-                👤
-              </Link>
-            )}
+            <UserMenu />
           </div>
         </div>
       </header>

@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { get, dele, put } from "../../../ultils/request";
 import './OrderListPage.scss';
 
 const OrderListPage = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:9999/api/admin/orders")
-      .then(res => setOrders(res.data.data))
-      .catch(err => console.error(err));
+    const load = async () => {
+      try {
+        const res = await get("admin/orders");
+        setOrders(res?.data || []);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    load();
   }, []);
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this order?")) return;
     try {
-      await axios.delete(`http://localhost:9999/api/admin/orders/${id}`);
+      await dele(`admin/orders`, id);
       setOrders(prev => prev.filter(order => order._id !== id));
     } catch (err) {
       console.error(err);
@@ -24,7 +30,7 @@ const OrderListPage = () => {
 
   const handleStatusChange = async (id, status) => {
     try {
-      await axios.put(`http://localhost:9999/api/admin/orders/${id}/status`, { status });
+      await put(`admin/orders/${id}/status`, { status });
       setOrders(prev => prev.map(order => order._id === id ? { ...order, status } : order));
     } catch (err) {
       console.error(err);

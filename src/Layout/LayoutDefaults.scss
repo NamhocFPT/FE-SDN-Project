@@ -165,6 +165,53 @@ a {
             color: $primary-color;
         }
     }
+
+    // User menu dropdown
+    .user-menu {
+        position: relative;
+        display: inline-block;
+
+        &__button {
+            background: transparent;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            color: $secondary-color;
+            padding: 4px 6px;
+            border-radius: 6px;
+            &:hover { color: $primary-color; background: #f6f6f6; }
+        }
+
+        &__dropdown {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 8px);
+            min-width: 200px;
+            background: #fff;
+            border: 1px solid $border-color;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            border-radius: 8px;
+            padding: 8px;
+            z-index: 1001;
+        }
+
+        &__item {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: transparent;
+            border: none;
+            padding: 10px 12px;
+            cursor: pointer;
+            border-radius: 6px;
+            color: #333;
+            &:hover { background: #f4f4f4; }
+        }
+
+        &__logout {
+            color: #b00020;
+        }
+    }
 }
 
 // --- Footer ---

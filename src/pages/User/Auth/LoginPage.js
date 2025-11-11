@@ -28,8 +28,18 @@ export default function LoginPage() {
       const data = await res.json();
 
       if (res.ok) {
-        // Use context helper to update state + localStorage
-        login(data.user, data.token);
+        // Fetch role info then persist to context/localStorage
+        try {
+          const meRes = await fetch("http://localhost:9999/api/auth/me", {
+            headers: { Authorization: `Bearer ${data.token}` },
+          });
+          const me = await meRes.json();
+          const userWithRole = { ...data.user, role: me?.role };
+          login(userWithRole, data.token);
+        } catch (_) {
+          // Fallback: login without role
+          login(data.user, data.token);
+        }
         setIsSuccess(true);
         setMessage(" Đăng nhập thành công!");
         const redirectTo = location.state?.from?.pathname || "/";

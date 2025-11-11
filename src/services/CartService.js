@@ -13,6 +13,23 @@ export const getCart = async () => {
   return result.items ? result.items : [];
 };
 
+// Helper: fire a global event so UI badges can refresh immediately
+const dispatchCartUpdated = () => {
+  try {
+    window.dispatchEvent(new CustomEvent("cartUpdated"));
+  } catch (_) {}
+};
+
+/**
+ * Thêm sản phẩm vào giỏ hàng.
+ * POST /api/cart/items
+ */
+export const addCartItem = async (foodId, quantity = 1) => {
+  const result = await post(`${API_PREFIX}/items`, { foodId, quantity });
+  dispatchCartUpdated();
+  return result.item || result;
+};
+
 /**
  * Cập nhật số lượng sản phẩm.
  * PATCH /api/cart/items/:itemId
@@ -20,6 +37,7 @@ export const getCart = async () => {
 export const updateCartItemQuantity = async (itemId, quantity) => {
   // Backend expects PUT /api/cart/items/:itemId
   const result = await put(`${API_PREFIX}/items/${itemId}`, { quantity });
+  dispatchCartUpdated();
   return result.item || result; // Return updated item
 };
 
@@ -29,6 +47,7 @@ export const updateCartItemQuantity = async (itemId, quantity) => {
  */
 export const removeCartItem = async (itemId) => {
   const result = await dele(`${API_PREFIX}/items`, itemId);
+  dispatchCartUpdated();
   return result; // { message, itemId }
 };
 
@@ -36,9 +55,28 @@ export const removeCartItem = async (itemId) => {
  * Gửi yêu cầu thanh toán.
  * POST /api/cart/checkout
  */
-export const checkout = async (selectedItemIds) => {
-  const result = await post(`${API_PREFIX}/checkout`, {
-    cartItemIds: selectedItemIds,
-  });
+export const checkout = async (payloadOrIds) => {
+  // Support both array of IDs or full payload object
+  const body = Array.isArray(payloadOrIds)
+    ? { cartItemIds: payloadOrIds }
+    : payloadOrIds || {};
+  const result = await post(`${API_PREFIX}/checkout`, body);
+  // After checkout, cart should be emptied (or processed) -> refresh badge
+  dispatchCartUpdated();
   return result; // { message, order, cartItemsProcessed }
 };
+
+/**
+ * Clear entire cart
+ * DELETE /api/cart
+ */
+export const clearCart = async () => {
+  const result = await dele(API_PREFIX, "");
+  dispatchCartUpdated();
+  return result;
+};
+
+/**
+ * Convenience: clear local cart UI state by dispatching event (used after using legacy order/add flow)
+ */
+export const notifyCartCleared = () => dispatchCartUpdated();

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '../../../context/AuthContext'; // Lấy thông tin user đăng nhập
-import { createOrder } from '../../../services/OrderService'; // Tạo đơn hàng
+import { checkout as checkoutCart, getCart as getCartItems, clearCart } from '../../../services/CartService'; // Checkout từ giỏ hàng
 import './CheckoutPage.scss';
 
 const CheckoutPage = () => {
@@ -12,6 +12,7 @@ const CheckoutPage = () => {
     // Lấy dữ liệu được gửi từ CartPage (có thể undefined nếu truy cập trực tiếp)
     const data = location.state;
     const items = data?.items || [];
+    const selectedItemIds = data?.selectedItemIds || items.map(it => it.id).filter(Boolean);
     const subtotal = data?.subtotal || 0;
     const shippingFee = 30000; // Phí ship cố định (có thể tách cấu hình sau)
     const grandTotal = subtotal + shippingFee;
@@ -43,27 +44,27 @@ const CheckoutPage = () => {
         }
         setIsPlacingOrder(true);
         try {
-            const orderData = {
-                shippingAddress,
-                paymentMethod,
-                items: items.map(item => ({ // Chỉ gửi các thông tin cần thiết
-                    foodId: item.foodId,
-                    name: item.name,
-                    quantity: item.quantity,
-                    unitPrice: item.unitPrice,
-                    lineTotal: item.lineTotal
-                })),
-                amounts: {
-                    subtotal: subtotal,
-                    shipping: shippingFee,
-                    grandTotal: grandTotal
-                }
+            // Gọi API checkout từ giỏ hàng
+            // Ưu tiên dùng API checkout từ giỏ hàng để BE xóa giỏ sau khi tạo đơn
+            const payload = {
+                cartItemIds: selectedItemIds,
+                shipping: shippingFee,
+                discount: 0,
+                tax: 0,
+                notes: shippingAddress.notes,
+                paymentMethodCode: (paymentMethod || 'cash').toUpperCase() === 'CASH' ? 'COD' : (paymentMethod || 'COD').toUpperCase()
             };
-            
-            // Gọi API
-            const createdOrder = await createOrder(orderData);
+            const result = await checkoutCart(payload);
+            const createdOrder = result?.order || result;
+            // Fallback: ensure cart is empty client-side by clearing if any items remain
+            try {
+                const remaining = await getCartItems();
+                if (Array.isArray(remaining) && remaining.length > 0) {
+                    await clearCart();
+                }
+            } catch (_) {}
             // Thành công
-            alert(`Đặt hàng thành công! Mã đơn hàng của bạn là: ${createdOrder?.code || createdOrder?.id || 'N/A'}`);
+            alert(`Đặt hàng thành công! Mã đơn hàng của bạn là: ${createdOrder?.code || createdOrder?.id || result?.order?.code || 'N/A'}`);
             navigate('/'); // Chuyển về trang chủ
 
         } catch (error) {

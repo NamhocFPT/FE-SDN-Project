@@ -113,7 +113,8 @@ const CartPage = () => {
         // 4. Điều hướng đến /checkout và gửi dữ liệu qua `state`
         navigate('/checkout', {
             state: {
-                items: itemsToCheckout, // Danh sách sản phẩm
+                items: itemsToCheckout, // Danh sách sản phẩm (bao gồm id cart item)
+                selectedItemIds: itemsToCheckout.map(it => it.id), // dùng cho API checkout
                 subtotal: subtotal      // Tổng tiền
             }
         });

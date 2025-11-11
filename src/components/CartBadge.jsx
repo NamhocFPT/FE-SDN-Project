@@ -28,6 +28,9 @@ const CartBadge = () => {
 
   useEffect(() => {
     load();
+    const handler = () => load();
+    window.addEventListener('cartUpdated', handler);
+    return () => window.removeEventListener('cartUpdated', handler);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 

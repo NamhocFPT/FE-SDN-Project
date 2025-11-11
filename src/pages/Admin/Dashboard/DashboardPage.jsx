@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { get } from "../../../ultils/request";
 import { Line, Bar, Pie } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -31,18 +31,19 @@ const DashboardPage = () => {
   const [summary, setSummary] = useState(null);
 
   useEffect(() => {
-    // 1. Lấy orders
-    axios.get("http://localhost:9999/api/admin/orders")
-      .then(async res => {
-        const orders = res.data.data;
+    const load = async () => {
+      try {
+        // 1. Lấy orders (kèm Authorization header qua request helper)
+        const ordersRes = await get("admin/orders");
+        const orders = ordersRes?.data || [];
 
         // 2. Lấy tất cả orderDetails
-        const orderIds = orders.map(o => o._id);
-        const detailsRes = await axios.get("http://localhost:9999/api/admin/orders/orderdetails"); // backend trả tất cả orderDetails
-        const allDetails = detailsRes.data.data;
+        const detailsRes = await get("admin/orders/orderdetails");
+  const allDetails = detailsRes?.data || [];
 
-        // Filter details theo orders
-        const orderDetails = allDetails.filter(od => orderIds.includes(od.orderId));
+  // Filter details theo orders
+  const orderIds = orders.map(o => o._id || o.id);
+  const orderDetails = allDetails.filter(od => orderIds.includes(od.orderId));
 
         // 3. Revenue by day
         const revenueByDay = {};
@@ -75,8 +76,11 @@ const DashboardPage = () => {
           totalPendingOrders: statusCount.pending,
           totalCanceledOrders: statusCount.canceled,
         });
-      })
-      .catch(err => console.error(err));
+      } catch (err) {
+        console.error("Failed to load dashboard:", err);
+      }
+    };
+    load();
   }, []);
 
   if (!summary) return <div className="loading">Loading...</div>;
