@@ -1,3 +1,6 @@
+
+//const API_DOMAIN = 'http://localhost:9999/api/'
+
 const API_DOMAIN = 'http://localhost:9999/'
 
 // ✅ GET
@@ -7,7 +10,9 @@ export const get = async (path) => {
     return result
 }
 
+
 // ✅ POST
+
 export const post = async (path, option) => {
     const response = await fetch(API_DOMAIN + path, {
         method: 'POST',
@@ -20,6 +25,7 @@ export const post = async (path, option) => {
     const result = await response.json()
     return result
 }
+
 
 // ✅ PATCH
 export const patch = async (path, option, id) => {
@@ -34,6 +40,7 @@ export const patch = async (path, option, id) => {
     const result = await response.json()
     return result
 }
+
 
 // ✅ PUT (thêm mới — hỗ trợ cập nhật dạng full update)
 export const put = async (path, option) => {

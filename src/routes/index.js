@@ -1,36 +1,35 @@
 import { Navigate } from "react-router-dom";
 import ProtectedRoute from "../components/ProtectedRoute";
 
-// Admin
-import AdminLayout from "../pages/Admin/AdminLayout/AdminLayout";
-import DashboardPage from "../pages/Admin/Dashboard/DashboardPage";
-import OrderListPage from "../pages/Admin/OrderList/OrderListPage";
-import UserListPage from "../pages/Admin/UserList/UserListPage";
-import AdminLayout from "../pages/Admin/AdminDashboard";
-import FoodManagement from "../pages/Admin/FoodManagement";
-// User
+// 🧩 Layouts
 import LayoutDefaults from "../Layout/LayoutDefaults";
+import AdminLayout from "../pages/Admin/AdminLayout/AdminLayout";
+
+// 🧩 User Pages
 import Home from "../pages/User/Home/Home";
 import BlogPage from "../pages/User/Blog/BlogPage";
 import ContactPage from "../pages/User/Contact/ContactPage";
+import ProductList from "../pages/User/ProductList/ProductList";
+import ProductDetail from "../pages/User/ProductDetail/ProductDetail";
+import FeedbackPage from "../pages/User/Feedback/FeedbackPage";
 
-import Home from "../pages/User/Home/Home";
-import UpdateFoodPage from "../pages/Admin/Food/UpdateFoodPage";
-
-// 🧩 Thêm Auth pages
+// 🧩 Auth Pages
 import LoginPage from "../pages/User/Auth/LoginPage";
 import RegisterPage from "../pages/User/Auth/RegisterPage";
 import ForgotPasswordPage from "../pages/User/Auth/ForgotPasswordPage";
 
-// 🧩 Thêm 3 trang mới
-import FeedbackPage from "../pages/User/Feedback/FeedbackPage";
+// 🧩 Admin Pages
+import AdminDashboard from "../pages/Admin/AdminDashboard";
+import FoodManagement from "../pages/Admin/FoodManagement";
+import UpdateFoodPage from "../pages/Admin/Food/UpdateFoodPage";
 import AdminFeedbackPage from "../pages/Admin/Feedback/AdminFeedbackPage";
 import AdminBlogPage from "../pages/Admin/Blog/AdminBlogPage";
 
+// 🧩 Others
 import NotFoundPage from "../pages/NotFound/NotFoundPage";
 
-
 export const Router = [
+  // 🌐 USER ROUTES
   {
     path: "/",
     element: <LayoutDefaults />,
@@ -38,23 +37,32 @@ export const Router = [
       { path: "/", element: <Home /> },
       { path: "blog", element: <BlogPage /> },
       { path: "contact", element: <ContactPage /> },
-
-      // ✅ Feedback cho user
+      { path: "products", element: <ProductList /> },
+      { path: "products/:idOrSlug", element: <ProductDetail /> },
       { path: "feedback", element: <FeedbackPage /> },
-
-      // ✅ Admin pages
-      { path: "admin/foods/:id/update", element: <UpdateFoodPage /> },
-      { path: "admin/feedbacks", element: <AdminFeedbackPage /> },
-      { path: "admin/blogs", element: <AdminBlogPage /> },
-
-      // 404
       { path: "*", element: <NotFoundPage /> },
     ],
   },
 
-  // ✅ Auth routes (nằm ngoài layout)
+  // 🔒 ADMIN ROUTES
+  {
+    path: "/admin",
+    element: (
+      <ProtectedRoute>
+        <AdminLayout />
+      </ProtectedRoute>
+    ),
+    children: [
+      { path: "", element: <AdminDashboard /> },
+      { path: "foods", element: <FoodManagement /> },
+      { path: "foods/:id/update", element: <UpdateFoodPage /> },
+      { path: "feedbacks", element: <AdminFeedbackPage /> },
+      { path: "blogs", element: <AdminBlogPage /> },
+    ],
+  },
+
+  // 🔐 AUTH ROUTES (ngoài layout)
   { path: "/login", element: <LoginPage /> },
   { path: "/register", element: <RegisterPage /> },
   { path: "/forgot", element: <ForgotPasswordPage /> },
 ];
-

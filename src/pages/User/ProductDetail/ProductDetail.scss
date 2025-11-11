@@ -1,0 +1,138 @@
+/* src/pages/User/ProductDetail/ProductDetail.scss */
+
+.product-detail-page {
+    padding: 40px 0;
+}
+
+.product-detail-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 2fr;
+    /* Chia cột hình ảnh và thông tin */
+    gap: 50px;
+    align-items: flex-start;
+    /* Canh trên */
+}
+
+.detail__image {
+    border: 1px solid #eee;
+    padding: 10px;
+    border-radius: 8px;
+
+    img {
+        width: 100%;
+        height: auto;
+        display: block;
+        max-height: 400px;
+        /* Giới hạn chiều cao */
+        object-fit: cover;
+        border-radius: 6px;
+    }
+}
+
+.detail__info {
+    h1 {
+        font-size: 2.2rem;
+        margin-bottom: 10px;
+        color: #333;
+    }
+}
+
+.detail__price {
+    font-size: 1.8rem;
+    color: #007bff;
+    /* Màu giá */
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.detail__description {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+
+    h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+
+    p {
+        line-height: 1.6;
+        color: #555;
+    }
+}
+
+.detail__actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.quantity-control {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+
+    button,
+    input {
+        border: none;
+        padding: 10px 15px;
+        text-align: center;
+        background-color: white;
+    }
+
+    input {
+        width: 60px;
+        font-size: 1rem;
+        border-left: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+        -moz-appearance: textfield;
+
+        /* Loại bỏ mũi tên trên Firefox */
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            /* Loại bỏ mũi tên trên Chrome/Safari */
+            margin: 0;
+        }
+    }
+}
+
+.add-to-cart-btn {
+    padding: 12px 25px;
+    background-color: #ffc107;
+    /* Màu vàng nổi bật */
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: #ffcd39;
+    }
+}
+
+.detail__meta {
+    margin-top: 20px;
+
+    p {
+        margin-bottom: 5px;
+        color: #666;
+    }
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .product-detail-grid {
+        grid-template-columns: 1fr;
+        /* 1 cột trên tablet/mobile */
+    }
+
+    .detail__image {
+        max-width: 80%;
+        margin: 0 auto;
+    }
+}
