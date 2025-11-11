@@ -1,12 +1,18 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 import AllRoute from './components/AllRoute/index';
-
+import { AuthProvider } from './context/AuthContext';
+import AdminLayout from "./pages/Admin/AdminLayout/AdminLayout";
+import DashboardPage from "./pages/Admin/Dashboard/DashboardPage";
+import OrderListPage from "./pages/Admin/OrderList/OrderListPage";
+import UserListPage from "./pages/Admin/UserList/UserListPage";
 function App() {
   return (
     <BrowserRouter>
-      <AllRoute />
+      <AuthProvider>
+        <AllRoute />
+      </AuthProvider>
     </BrowserRouter>
   );
 }

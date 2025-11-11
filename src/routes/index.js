@@ -1,59 +1,68 @@
+import { Navigate } from "react-router-dom";
+import ProtectedRoute from "../components/ProtectedRoute";
 
+// 🧩 Layouts
 import LayoutDefaults from "../Layout/LayoutDefaults";
-import NotFoundPage from "../pages/NotFound/NotFoundPage";
+import AdminLayout from "../pages/Admin/AdminLayout/AdminLayout";
+
+// 🧩 User Pages
+import Home from "../pages/User/Home/Home";
 import BlogPage from "../pages/User/Blog/BlogPage";
 import ContactPage from "../pages/User/Contact/ContactPage";
-import Home from "../pages/User/Home/Home";
 import ProductList from "../pages/User/ProductList/ProductList";
 import ProductDetail from "../pages/User/ProductDetail/ProductDetail";
-// Admin imports
-import AdminLayout from "../pages/Admin/AdminLayout";
+import FeedbackPage from "../pages/User/Feedback/FeedbackPage";
+
+// 🧩 Auth Pages
+import LoginPage from "../pages/User/Auth/LoginPage";
+import RegisterPage from "../pages/User/Auth/RegisterPage";
+import ForgotPasswordPage from "../pages/User/Auth/ForgotPasswordPage";
+
+// 🧩 Admin Pages
 import AdminDashboard from "../pages/Admin/AdminDashboard";
 import FoodManagement from "../pages/Admin/FoodManagement";
+import UpdateFoodPage from "../pages/Admin/Food/UpdateFoodPage";
+import AdminFeedbackPage from "../pages/Admin/Feedback/AdminFeedbackPage";
+import AdminBlogPage from "../pages/Admin/Blog/AdminBlogPage";
+
+// 🧩 Others
+import NotFoundPage from "../pages/NotFound/NotFoundPage";
 
 export const Router = [
-    {
-        path: '/',
-        element: <LayoutDefaults />,
-        children: [
-            {
-                path: '/',
-                element: <Home />
-            },
-            {
-                path: 'blog',
-                element: <BlogPage />
-            },
-            {
-                path: 'products',
-                element: < ProductList />
-            },
-            {
-                path: 'products/:idOrSlug', // Dùng tham số động để truyền ID hoặc Slug
-                element: <ProductDetail />
-            },
-            {
-                path: 'contact',
-                element: <ContactPage />
-            },
-            {
-                path: '*',
-                element: <NotFoundPage />
-            }
-        ]
-    },
-    {
-        path: '/admin',
-        element: <AdminLayout />,
-        children: [
-            {
-                path: '/admin',
-                element: <AdminDashboard />
-            },
-            {
-                path: '/admin/foods',
-                element: <FoodManagement />
-            }
-        ]
-    }
-]
+  // 🌐 USER ROUTES
+  {
+    path: "/",
+    element: <LayoutDefaults />,
+    children: [
+      { path: "/", element: <Home /> },
+      { path: "blog", element: <BlogPage /> },
+      { path: "contact", element: <ContactPage /> },
+      { path: "products", element: <ProductList /> },
+      { path: "products/:idOrSlug", element: <ProductDetail /> },
+      { path: "feedback", element: <FeedbackPage /> },
+      { path: "*", element: <NotFoundPage /> },
+    ],
+  },
+
+  // 🔒 ADMIN ROUTES
+  {
+    path: "/admin",
+    element: (
+      <ProtectedRoute>
+        <AdminLayout />
+      </ProtectedRoute>
+    ),
+    children: [
+      { path: "", element: <AdminDashboard /> },
+      { path: "foods", element: <FoodManagement /> },
+      { path: "foods/:id/update", element: <UpdateFoodPage /> },
+      { path: "feedbacks", element: <AdminFeedbackPage /> },
+      { path: "blogs", element: <AdminBlogPage /> },
+    ],
+  },
+
+  // 🔐 AUTH ROUTES (ngoài layout)
+  { path: "/login", element: <LoginPage /> },
+  { path: "/register", element: <RegisterPage /> },
+  { path: "/forgot", element: <ForgotPasswordPage /> },
+];

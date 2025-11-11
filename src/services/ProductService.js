@@ -1,4 +1,4 @@
-import { get } from "../ultils/request.js";
+import {dele, get, patch, post,put } from "../ultils/request.js";
 
 // Hàm tiện ích đã sửa để trả về TOÀN BỘ OBJECT RESULT cho getProductList
 const handleServiceResult = (result, defaultErrorMessage, returnFullResult = false) => {
@@ -14,6 +14,7 @@ const handleServiceResult = (result, defaultErrorMessage, returnFullResult = fal
 
     // Nếu không, chỉ trả về data (dùng cho FeaturedFoods, Categories)
     return Array.isArray(result.data) ? result.data : [];
+
 }
 
 // 1. Lấy danh sách MÓN ĂN NỔI BẬT: GET /api/food/featured
@@ -92,4 +93,10 @@ export const getFoodDetail = async (idOrSlug) => {
     } catch (error) {
         throw new Error(error.message || `Lỗi khi tải chi tiết món ăn ${idOrSlug}.`);
     }
+};
+//  Update món ăn
+export const updateFood = async (id, data) => {
+  const result = await put(`api/admin/foods/${id}/update`, data);
+  return result;
+
 };

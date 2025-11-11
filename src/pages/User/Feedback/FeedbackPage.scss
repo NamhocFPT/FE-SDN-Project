@@ -1,0 +1,73 @@
+.feedback-page {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 50px 20px;
+  background: #f7f8fa;
+  min-height: 100vh;
+}
+
+.feedback-container {
+  background: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.feedback-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+.feedback-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.feedback-form label {
+  font-weight: 600;
+  color: #333;
+}
+
+.feedback-form select,
+.feedback-form textarea {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+}
+
+.feedback-form select:focus,
+.feedback-form textarea:focus {
+  border-color: #007bff;
+}
+
+.feedback-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.btn-update {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-update:hover {
+  background-color: #0056b3;
+}
